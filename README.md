@@ -10,6 +10,7 @@ Pick a technology. Hit generate. Get a clean, downloadable reference card — po
 [![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![Anthropic](https://img.shields.io/badge/Claude_API-Anthropic-d4a574?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com)
+[![Upstash](https://img.shields.io/badge/Upstash-Redis-00e9a3?style=for-the-badge&logo=upstash&logoColor=white)](https://upstash.com)
 [![License](https://img.shields.io/badge/License-MIT-00e5a0?style=for-the-badge)](LICENSE)
 
 </div>
@@ -24,6 +25,13 @@ Pick a technology. Hit generate. Get a clean, downloadable reference card — po
 - **Download as .TXT or .MD** — export for offline use or paste into docs
 - **Server-side API key** — your Anthropic key never touches the browser
 - **Terminal-inspired UI** — dark theme, monospace fonts, zero fluff
+
+## Security
+
+- **Server-side allowlist** — only the 15 known technology labels are accepted; arbitrary input is rejected with a `400` before reaching the AI
+- **Rate limiting** — per-IP sliding window (10 req / 60s) via Upstash Redis, with proper `429` responses and `Retry-After` headers
+- **No prompt injection** — the user message sent to Claude is constructed entirely from the validated allowlist, not from free-text input
+- **Graceful fallback** — rate limiting is optional; without Upstash credentials the API runs unthrottled (safe for local dev)
 
 ## Supported Technologies
 
@@ -53,6 +61,7 @@ Pick a technology. Hit generate. Get a clean, downloadable reference card — po
 | UI | React 19 + custom CSS | ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=react&logoColor=black) |
 | Fonts | JetBrains Mono, Space Mono | ![Google Fonts](https://img.shields.io/badge/-Google_Fonts-4285F4?style=flat-square&logo=googlefonts&logoColor=white) |
 | AI | Claude API (Anthropic) | ![Anthropic](https://img.shields.io/badge/-Claude-d4a574?style=flat-square&logo=anthropic&logoColor=white) |
+| Rate Limiting | Upstash Redis | ![Upstash](https://img.shields.io/badge/-Upstash-00e9a3?style=flat-square&logo=upstash&logoColor=white) |
 | Language | TypeScript 5 | ![TypeScript](https://img.shields.io/badge/-TypeScript-3178c6?style=flat-square&logo=typescript&logoColor=white) |
 | Package Manager | pnpm | ![pnpm](https://img.shields.io/badge/-pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white) |
 
@@ -63,6 +72,7 @@ Pick a technology. Hit generate. Get a clean, downloadable reference card — po
 - ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=nodedotjs&logoColor=white)
 - ![pnpm](https://img.shields.io/badge/pnpm-latest-F69220?style=flat-square&logo=pnpm&logoColor=white) (or npm / yarn)
 - An [Anthropic API key](https://console.anthropic.com)
+- *(Optional)* An [Upstash Redis](https://console.upstash.com) instance for rate limiting
 
 ### Setup
 
@@ -82,6 +92,10 @@ Add your API key to `.env`:
 
 ```env
 ANTHROPIC_API_KEY=sk-ant-...
+
+# Optional — enables rate limiting in production
+UPSTASH_REDIS_REST_URL=https://...
+UPSTASH_REDIS_REST_TOKEN=AX...
 ```
 
 ### Run
@@ -97,7 +111,7 @@ Open [http://localhost:3000](http://localhost:3000).
 ```
 termref/
 ├── app/
-│   ├── api/generate/route.ts   # Anthropic API proxy
+│   ├── api/generate/route.ts   # Anthropic API proxy (allowlist + rate limit)
 │   ├── components/
 │   │   └── termref-app.tsx      # Main client component
 │   ├── globals.css              # Reset
@@ -105,7 +119,9 @@ termref/
 │   ├── layout.tsx               # Root layout + fonts
 │   └── page.tsx                 # Entry page
 ├── lib/
-│   └── cheat-sheet.ts           # Parser + text formatter
+│   ├── cheat-sheet.ts           # JSON parser + text formatter
+│   ├── rate-limit.ts            # Upstash rate limiter (optional)
+│   └── technologies.ts          # Shared tech list + allowlist validator
 ├── .env.example
 └── package.json
 ```
@@ -114,13 +130,17 @@ termref/
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key (server-side only) |
+| `ANTHROPIC_API_KEY` | Yes | Anthropic API key (server-side only) |
+| `UPSTASH_REDIS_REST_URL` | No | Upstash Redis URL — enables rate limiting |
+| `UPSTASH_REDIS_REST_TOKEN` | No | Upstash Redis token — enables rate limiting |
+
+> **Tip:** On Vercel, add Upstash via **Storage** → **Marketplace** → **Upstash for Redis**. The env vars are injected automatically.
 
 ---
 
 <div align="center">
 
-**Built with** ![Next.js](https://img.shields.io/badge/-Next.js-000?style=flat-square&logo=nextdotjs&logoColor=white) **+** ![Anthropic](https://img.shields.io/badge/-Claude-d4a574?style=flat-square&logo=anthropic&logoColor=white)
+**Built with** ![Next.js](https://img.shields.io/badge/-Next.js-000?style=flat-square&logo=nextdotjs&logoColor=white) **+** ![Anthropic](https://img.shields.io/badge/-Claude-d4a574?style=flat-square&logo=anthropic&logoColor=white) **+** ![Upstash](https://img.shields.io/badge/-Upstash-00e9a3?style=flat-square&logo=upstash&logoColor=white)
 
 MIT License
 

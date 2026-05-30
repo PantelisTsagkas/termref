@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { parseCheatSheet } from "@/lib/cheat-sheet";
+import { isValidTechLabel } from "@/lib/technologies";
+import { getClientIp, ratelimit } from "@/lib/rate-limit";
 
 const SYSTEM_PROMPT = `You are a technical documentation expert. When given a technology name, return ONLY a valid JSON object (no markdown fences) with this exact shape:
 {
@@ -24,6 +26,26 @@ export async function POST(request: Request) {
     );
   }
 
+  if (ratelimit) {
+    const { success, limit, remaining, reset } = await ratelimit.limit(
+      getClientIp(request),
+    );
+    if (!success) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Please slow down and try again shortly." },
+        {
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": String(limit),
+            "X-RateLimit-Remaining": String(remaining),
+            "X-RateLimit-Reset": String(reset),
+            "Retry-After": String(Math.max(0, Math.ceil((reset - Date.now()) / 1000))),
+          },
+        },
+      );
+    }
+  }
+
   let body: { techLabel?: string };
   try {
     body = await request.json();
@@ -32,8 +54,11 @@ export async function POST(request: Request) {
   }
 
   const { techLabel } = body;
-  if (!techLabel || typeof techLabel !== "string") {
-    return NextResponse.json({ error: "Technology label is required." }, { status: 400 });
+  if (!isValidTechLabel(techLabel)) {
+    return NextResponse.json(
+      { error: "Unknown or unsupported technology." },
+      { status: 400 },
+    );
   }
 
   try {
@@ -70,6 +95,17 @@ export async function POST(request: Request) {
     }
 
     const data = await res.json();
+
+    console.log("[termref]", techLabel, {
+      stop_reason: data.stop_reason,
+      input_tokens: data.usage?.input_tokens,
+      output_tokens: data.usage?.output_tokens,
+    });
+
+    if (data.stop_reason === "max_tokens") {
+      console.warn("[termref] Response truncated — hit max_tokens limit");
+    }
+
     const raw =
       data.content
         ?.filter((b: { type?: string }) => b.type === "text")
