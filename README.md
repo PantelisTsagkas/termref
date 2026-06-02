@@ -6,7 +6,9 @@
 
 Pick a technology. Hit generate. Get a clean, downloadable reference card — powered by Claude.
 
-<img src="./docs/termref-aws.png" alt="Termref generating an AWS CLI cheat sheet" width="900" />
+<img src="./docs/termref-empty-state.png" alt="Termref — select a technology and generate" width="900" />
+
+<br><br>
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
@@ -23,7 +25,9 @@ Pick a technology. Hit generate. Get a clean, downloadable reference card — po
 
 <div align="center">
 
-<img src="./docs/termref-empty-state.png" alt="Termref empty state — select a technology and generate" width="900" />
+<img src="./docs/termref-aws.png" alt="Termref generating an AWS CLI cheat sheet" width="900" />
+
+<br><br>
 
 </div>
 
