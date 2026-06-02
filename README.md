@@ -6,6 +6,8 @@
 
 Pick a technology. Hit generate. Get a clean, downloadable reference card — powered by Claude.
 
+<img src="./docs/termref-aws.png" alt="Termref generating an AWS CLI cheat sheet" width="900" />
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -18,6 +20,12 @@ Pick a technology. Hit generate. Get a clean, downloadable reference card — po
 ---
 
 ## Features
+
+<div align="center">
+
+<img src="./docs/termref-empty-state.png" alt="Termref empty state — select a technology and generate" width="900" />
+
+</div>
 
 - **15+ technologies** — Git, Docker, Kubernetes, Python, Bash, AWS CLI, Terraform, Vim, dbt, and more
 - **Category filtering** — browse by DevOps, Language, Cloud, Data, etc.
@@ -118,6 +126,9 @@ termref/
 │   ├── termref.css              # Terminal theme styles
 │   ├── layout.tsx               # Root layout + fonts
 │   └── page.tsx                 # Entry page
+├── docs/
+│   ├── termref-aws.png          # README screenshot (generated sheet)
+│   └── termref-empty-state.png  # README screenshot (empty state)
 ├── lib/
 │   ├── cheat-sheet.ts           # JSON parser + text formatter
 │   ├── rate-limit.ts            # Upstash rate limiter (optional)
