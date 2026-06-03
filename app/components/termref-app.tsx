@@ -65,6 +65,13 @@ export default function TermrefApp() {
     URL.revokeObjectURL(url);
   }
 
+  function reset() {
+    setSheet(null);
+    setRawText("");
+    setError("");
+    setSelected(null);
+  }
+
   function downloadMd() {
     if (!sheet) return;
     let md = `# ${sheet.title}\n\n`;
@@ -157,6 +164,11 @@ export default function TermrefApp() {
                     ? `ready — ${TECHNOLOGIES.find((t) => t.id === selected)?.label}`
                     : "no file open"}
               </span>
+              {(sheet || error) && (
+                <button type="button" className="dl-btn" onClick={reset}>
+                  ↺ RESET
+                </button>
+              )}
               <button
                 type="button"
                 className="dl-btn"
