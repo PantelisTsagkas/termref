@@ -4,8 +4,8 @@ import "./globals.css";
 import "./termref.css";
 
 export const metadata: Metadata = {
-  title: "Termref — Terminal Cheat Sheet Generator",
-  description: "AI-powered terminal command cheat sheet generator",
+  title: "Termref — Terminal Cheat Sheet Reference",
+  description: "Curated terminal command cheat sheets for developers",
 };
 
 export default function RootLayout({

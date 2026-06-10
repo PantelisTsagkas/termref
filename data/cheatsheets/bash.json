@@ -1,0 +1,227 @@
+{
+  "title": "Bash Cheat Sheet",
+  "sections": [
+    {
+      "title": "NAVIGATION & FILE SYSTEM",
+      "commands": [
+        {
+          "cmd": "pwd",
+          "desc": "Print current working directory path."
+        },
+        {
+          "cmd": "cd /path/to/dir",
+          "desc": "Change to specified directory."
+        },
+        {
+          "cmd": "cd ~",
+          "desc": "Navigate to home directory."
+        },
+        {
+          "cmd": "cd -",
+          "desc": "Switch to previous directory."
+        },
+        {
+          "cmd": "ls -la",
+          "desc": "List all files with detailed permissions."
+        },
+        {
+          "cmd": "tree -L 2",
+          "desc": "Display directory tree two levels deep."
+        },
+        {
+          "cmd": "find . -name '*.txt'",
+          "desc": "Find all .txt files recursively."
+        },
+        {
+          "cmd": "locate filename",
+          "desc": "Quickly find file by name system-wide."
+        }
+      ]
+    },
+    {
+      "title": "FILE OPERATIONS",
+      "commands": [
+        {
+          "cmd": "cp -r source/ dest/",
+          "desc": "Recursively copy directory to destination."
+        },
+        {
+          "cmd": "mv file.txt /path/",
+          "desc": "Move or rename a file."
+        },
+        {
+          "cmd": "rm -rf dir/",
+          "desc": "Forcefully delete directory and contents."
+        },
+        {
+          "cmd": "mkdir -p a/b/c",
+          "desc": "Create nested directories in one command."
+        },
+        {
+          "cmd": "touch file.txt",
+          "desc": "Create empty file or update timestamp."
+        },
+        {
+          "cmd": "ln -s target link",
+          "desc": "Create a symbolic link to target."
+        },
+        {
+          "cmd": "chmod 755 file",
+          "desc": "Set file permissions to rwxr-xr-x."
+        },
+        {
+          "cmd": "chown user:group file",
+          "desc": "Change file owner and group."
+        }
+      ]
+    },
+    {
+      "title": "TEXT PROCESSING",
+      "commands": [
+        {
+          "cmd": "cat file.txt",
+          "desc": "Print file contents to stdout."
+        },
+        {
+          "cmd": "grep -rn 'pattern' .",
+          "desc": "Recursively search for pattern with line numbers."
+        },
+        {
+          "cmd": "sed 's/old/new/g' file",
+          "desc": "Replace all occurrences of old with new."
+        },
+        {
+          "cmd": "awk '{print $1}' file",
+          "desc": "Print first column of each line."
+        },
+        {
+          "cmd": "sort -u file.txt",
+          "desc": "Sort file and remove duplicates."
+        },
+        {
+          "cmd": "cut -d',' -f1 file",
+          "desc": "Extract first field using comma delimiter."
+        },
+        {
+          "cmd": "wc -l file.txt",
+          "desc": "Count number of lines in file."
+        },
+        {
+          "cmd": "tail -f logfile",
+          "desc": "Follow file output in real time."
+        }
+      ]
+    },
+    {
+      "title": "PROCESS & SYSTEM MANAGEMENT",
+      "commands": [
+        {
+          "cmd": "ps aux",
+          "desc": "List all running processes with details."
+        },
+        {
+          "cmd": "kill -9 PID",
+          "desc": "Forcefully terminate process by PID."
+        },
+        {
+          "cmd": "top",
+          "desc": "Interactive real-time process monitor."
+        },
+        {
+          "cmd": "htop",
+          "desc": "Enhanced interactive process viewer."
+        },
+        {
+          "cmd": "df -h",
+          "desc": "Show disk usage in human-readable format."
+        },
+        {
+          "cmd": "du -sh dir/",
+          "desc": "Show total size of directory."
+        },
+        {
+          "cmd": "free -h",
+          "desc": "Display available and used memory."
+        },
+        {
+          "cmd": "uptime",
+          "desc": "Show system uptime and load averages."
+        }
+      ]
+    },
+    {
+      "title": "SHELL SCRIPTING & VARIABLES",
+      "commands": [
+        {
+          "cmd": "export VAR='value'",
+          "desc": "Set and export an environment variable."
+        },
+        {
+          "cmd": "echo $VAR",
+          "desc": "Print value of a variable."
+        },
+        {
+          "cmd": "VAR=$(command)",
+          "desc": "Assign command output to a variable."
+        },
+        {
+          "cmd": "for i in {1..5}; do echo $i; done",
+          "desc": "Loop and print numbers 1 through 5."
+        },
+        {
+          "cmd": "if [ -f file ]; then echo yes; fi",
+          "desc": "Check if a file exists."
+        },
+        {
+          "cmd": "function greet() { echo \"Hello $1\"; }",
+          "desc": "Define a reusable shell function."
+        },
+        {
+          "cmd": "chmod +x script.sh && ./script.sh",
+          "desc": "Make script executable and run it."
+        },
+        {
+          "cmd": "source ~/.bashrc",
+          "desc": "Reload bash config without restarting shell."
+        }
+      ]
+    },
+    {
+      "title": "PIPING, REDIRECTION & ADVANCED",
+      "commands": [
+        {
+          "cmd": "cmd1 | cmd2",
+          "desc": "Pipe output of cmd1 into cmd2."
+        },
+        {
+          "cmd": "command > file.txt",
+          "desc": "Redirect stdout to file, overwriting it."
+        },
+        {
+          "cmd": "command >> file.txt",
+          "desc": "Append stdout to existing file."
+        },
+        {
+          "cmd": "command 2>&1 | tee out.log",
+          "desc": "Capture stdout and stderr to file."
+        },
+        {
+          "cmd": "command &",
+          "desc": "Run command in the background."
+        },
+        {
+          "cmd": "jobs && fg %1",
+          "desc": "List background jobs and bring one forward."
+        },
+        {
+          "cmd": "history | grep 'cmd'",
+          "desc": "Search command history for a term."
+        },
+        {
+          "cmd": "ctrl+r",
+          "desc": "Interactively search command history."
+        }
+      ]
+    }
+  ]
+}

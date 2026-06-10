@@ -1,0 +1,80 @@
+{
+  "title": "Git Cheat Sheet",
+  "sections": [
+    {
+      "title": "SETUP & CONFIGURATION",
+      "commands": [
+        { "cmd": "git config --global user.name \"Your Name\"", "desc": "Set global username for all commits" },
+        { "cmd": "git config --global user.email \"you@example.com\"", "desc": "Set global email for all commits" },
+        { "cmd": "git config --list", "desc": "List all current Git configuration settings" },
+        { "cmd": "git init", "desc": "Initialize a new local Git repository" },
+        { "cmd": "git clone <url>", "desc": "Clone a remote repository locally" },
+        { "cmd": "git config --global core.editor \"code --wait\"", "desc": "Set VS Code as default Git editor" },
+        { "cmd": "git config --global alias.st status", "desc": "Create a shortcut alias for a command" }
+      ]
+    },
+    {
+      "title": "CORE WORKFLOW",
+      "commands": [
+        { "cmd": "git status", "desc": "Show working tree and staging area status" },
+        { "cmd": "git add <file>", "desc": "Stage a specific file for commit" },
+        { "cmd": "git add .", "desc": "Stage all changed files in current directory" },
+        { "cmd": "git commit -m \"message\"", "desc": "Commit staged changes with a message" },
+        { "cmd": "git commit -am \"message\"", "desc": "Stage tracked files and commit in one step" },
+        { "cmd": "git diff", "desc": "Show unstaged changes in working directory" },
+        { "cmd": "git diff --staged", "desc": "Show changes staged for next commit" },
+        { "cmd": "git log --oneline --graph", "desc": "Display compact visual commit history" }
+      ]
+    },
+    {
+      "title": "BRANCHING",
+      "commands": [
+        { "cmd": "git branch", "desc": "List all local branches" },
+        { "cmd": "git branch <name>", "desc": "Create a new branch" },
+        { "cmd": "git checkout <branch>", "desc": "Switch to an existing branch" },
+        { "cmd": "git checkout -b <branch>", "desc": "Create and switch to a new branch" },
+        { "cmd": "git switch -c <branch>", "desc": "Modern way to create and switch branch" },
+        { "cmd": "git merge <branch>", "desc": "Merge specified branch into current branch" },
+        { "cmd": "git branch -d <branch>", "desc": "Delete a local branch safely" },
+        { "cmd": "git rebase <branch>", "desc": "Reapply commits on top of another branch" }
+      ]
+    },
+    {
+      "title": "REMOTES",
+      "commands": [
+        { "cmd": "git remote -v", "desc": "List all remote connections with URLs" },
+        { "cmd": "git remote add origin <url>", "desc": "Add a new remote named origin" },
+        { "cmd": "git push origin <branch>", "desc": "Push branch to remote repository" },
+        { "cmd": "git push -u origin <branch>", "desc": "Push and set upstream tracking branch" },
+        { "cmd": "git pull", "desc": "Fetch and merge changes from remote" },
+        { "cmd": "git fetch origin", "desc": "Download remote changes without merging" },
+        { "cmd": "git remote remove <name>", "desc": "Remove a remote connection" }
+      ]
+    },
+    {
+      "title": "UNDOING CHANGES",
+      "commands": [
+        { "cmd": "git restore <file>", "desc": "Discard unstaged changes in a file" },
+        { "cmd": "git restore --staged <file>", "desc": "Unstage a file without losing changes" },
+        { "cmd": "git revert <commit>", "desc": "Create new commit that undoes a commit" },
+        { "cmd": "git reset --soft HEAD~1", "desc": "Undo last commit, keep changes staged" },
+        { "cmd": "git reset --hard HEAD~1", "desc": "Undo last commit and discard all changes" },
+        { "cmd": "git clean -fd", "desc": "Remove untracked files and directories" },
+        { "cmd": "git commit --amend -m \"msg\"", "desc": "Edit the most recent commit message" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "git stash", "desc": "Temporarily save uncommitted changes" },
+        { "cmd": "git stash pop", "desc": "Restore most recently stashed changes" },
+        { "cmd": "git stash list", "desc": "List all saved stash entries" },
+        { "cmd": "git cherry-pick <commit>", "desc": "Apply a specific commit to current branch" },
+        { "cmd": "git tag -a v1.0 -m \"msg\"", "desc": "Create an annotated version tag" },
+        { "cmd": "git bisect start", "desc": "Start binary search to find a bug" },
+        { "cmd": "git log --author=\"name\" --since=\"2 weeks ago\"", "desc": "Filter commits by author and date" },
+        { "cmd": "git shortlog -sn", "desc": "Summarize commit count per contributor" }
+      ]
+    }
+  ]
+}

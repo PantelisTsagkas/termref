@@ -1,0 +1,79 @@
+{
+  "title": "Python Cheat Sheet",
+  "sections": [
+    {
+      "title": "ENVIRONMENT & SETUP",
+      "commands": [
+        { "cmd": "python3 --version", "desc": "Show installed Python version" },
+        { "cmd": "python3 -m venv .venv", "desc": "Create a virtual environment" },
+        { "cmd": "source .venv/bin/activate", "desc": "Activate virtual environment on macOS/Linux" },
+        { "cmd": ".venv\\Scripts\\activate", "desc": "Activate virtual environment on Windows" },
+        { "cmd": "deactivate", "desc": "Deactivate the current virtual environment" },
+        { "cmd": "which python3", "desc": "Show path to active Python interpreter" },
+        { "cmd": "pip install -r requirements.txt", "desc": "Install pinned dependencies from file" }
+      ]
+    },
+    {
+      "title": "RUNNING CODE",
+      "commands": [
+        { "cmd": "python3 script.py", "desc": "Run a Python script file" },
+        { "cmd": "python3 -m module", "desc": "Run a module as a script" },
+        { "cmd": "python3 -c \"print('hello')\"", "desc": "Execute inline Python code" },
+        { "cmd": "python3 -i script.py", "desc": "Run script then drop into REPL" },
+        { "cmd": "python3 -m http.server 8000", "desc": "Start a simple local HTTP server" },
+        { "cmd": "python3 -m pip install <pkg>", "desc": "Install a package using pip module" },
+        { "cmd": "python3 -m venv --upgrade-deps .venv", "desc": "Create venv and upgrade bundled pip" }
+      ]
+    },
+    {
+      "title": "PIP & PACKAGES",
+      "commands": [
+        { "cmd": "pip list", "desc": "List installed packages in environment" },
+        { "cmd": "pip show <pkg>", "desc": "Show metadata for an installed package" },
+        { "cmd": "pip install <pkg>", "desc": "Install a package from PyPI" },
+        { "cmd": "pip install <pkg>==1.2.3", "desc": "Install an exact package version" },
+        { "cmd": "pip uninstall <pkg>", "desc": "Remove a package from environment" },
+        { "cmd": "pip freeze > requirements.txt", "desc": "Export installed packages to file" },
+        { "cmd": "pip install -e .", "desc": "Install current project in editable mode" },
+        { "cmd": "pip cache purge", "desc": "Clear pip download cache" }
+      ]
+    },
+    {
+      "title": "TESTING & QUALITY",
+      "commands": [
+        { "cmd": "pytest", "desc": "Run the pytest test suite" },
+        { "cmd": "pytest -k \"pattern\"", "desc": "Run tests matching a name pattern" },
+        { "cmd": "pytest --cov=app", "desc": "Run tests with coverage report" },
+        { "cmd": "python3 -m unittest discover", "desc": "Discover and run unittest tests" },
+        { "cmd": "ruff check .", "desc": "Lint Python code with ruff" },
+        { "cmd": "ruff format .", "desc": "Format Python code with ruff" },
+        { "cmd": "mypy .", "desc": "Run static type checking with mypy" }
+      ]
+    },
+    {
+      "title": "PROJECT TOOLING",
+      "commands": [
+        { "cmd": "pip install uv", "desc": "Install the uv fast package manager" },
+        { "cmd": "uv pip install -r requirements.txt", "desc": "Install dependencies quickly with uv" },
+        { "cmd": "poetry install", "desc": "Install dependencies from poetry.lock" },
+        { "cmd": "poetry add <pkg>", "desc": "Add dependency with Poetry" },
+        { "cmd": "pipx install <pkg>", "desc": "Install CLI tool in isolated environment" },
+        { "cmd": "python3 -m build", "desc": "Build wheel and sdist for distribution" },
+        { "cmd": "twine upload dist/*", "desc": "Upload built package to PyPI" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "python3 -m profile script.py", "desc": "Profile script execution time" },
+        { "cmd": "python3 -m cProfile -o out.prof script.py", "desc": "Save profiling output to file" },
+        { "cmd": "python3 -m pdb script.py", "desc": "Run script under the pdb debugger" },
+        { "cmd": "PYTHONPATH=src python3 script.py", "desc": "Run with custom module search path" },
+        { "cmd": "python3 -m json.tool file.json", "desc": "Pretty-print JSON from a file" },
+        { "cmd": "python3 -m timeit \"code\"", "desc": "Benchmark a small code snippet" },
+        { "cmd": "pip install -r requirements-dev.txt", "desc": "Install development-only dependencies" },
+        { "cmd": "python3 -m pip check", "desc": "Verify installed packages have compatible deps" }
+      ]
+    }
+  ]
+}

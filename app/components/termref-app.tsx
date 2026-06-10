@@ -2,12 +2,12 @@
 
 import { useRef, useState } from "react";
 import { sheetToText, type CheatSheet } from "@/lib/cheat-sheet";
+import { getCheatSheet } from "@/lib/cheatsheets";
 import { CATEGORIES, TECHNOLOGIES } from "@/lib/technologies";
 
 export default function TermrefApp() {
   const [activeCat, setActiveCat] = useState("All");
   const [selected, setSelected] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [sheet, setSheet] = useState<CheatSheet | null>(null);
   const [error, setError] = useState("");
   const [rawText, setRawText] = useState("");
@@ -18,40 +18,20 @@ export default function TermrefApp() {
       ? TECHNOLOGIES
       : TECHNOLOGIES.filter((t) => t.category === activeCat);
 
-  async function generate() {
+  function loadSheet() {
     if (!selected) return;
-    setLoading(true);
     setError("");
     setSheet(null);
     setRawText("");
 
-    const tech = TECHNOLOGIES.find((t) => t.id === selected);
-    if (!tech) return;
-
-    try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ techLabel: tech.label }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong. Please try again.");
-      }
-
-      if (!data.sheet?.title) {
-        throw new Error("Could not parse response from API.");
-      }
-      setSheet(data.sheet);
-      setRawText(sheetToText(data.sheet));
-    } catch (e) {
-      setError(
-        e instanceof Error ? e.message : "Something went wrong. Please try again.",
-      );
-    } finally {
-      setLoading(false);
+    const sheet = getCheatSheet(selected);
+    if (!sheet?.title) {
+      setError("Cheat sheet not found.");
+      return;
     }
+
+    setSheet(sheet);
+    setRawText(sheetToText(sheet));
   }
 
   function downloadTxt() {
@@ -97,9 +77,9 @@ export default function TermrefApp() {
         <div className="logo-box">&gt;_</div>
         <div className="header-text">
           <h1>TERMREF</h1>
-          <p>AI-POWERED TERMINAL CHEAT SHEET GENERATOR</p>
+          <p>CURATED TERMINAL CHEAT SHEET REFERENCE</p>
         </div>
-        <div className="badge">POWERED BY CLAUDE</div>
+        <div className="badge">15 TECHNOLOGIES</div>
       </header>
 
       <div className="main">
@@ -145,10 +125,10 @@ export default function TermrefApp() {
             <button
               type="button"
               className="gen-btn"
-              onClick={generate}
-              disabled={!selected || loading}
+              onClick={loadSheet}
+              disabled={!selected}
             >
-              {loading ? "GENERATING…" : "GENERATE ↵"}
+              LOAD ↵
             </button>
           </div>
 
@@ -188,29 +168,19 @@ export default function TermrefApp() {
             </div>
 
             <div className="output-scroll" ref={outputRef}>
-              {!loading && !sheet && !error && (
+              {!sheet && !error && (
                 <div className="empty-state">
                   <div className="empty-ascii">{"{ }"}</div>
-                  <div>select a technology → generate</div>
+                  <div>select a technology → load</div>
                   <div className="empty-hint">
-                    pick a tool from the sidebar, then press GENERATE
-                  </div>
-                </div>
-              )}
-
-              {loading && (
-                <div className="loading-state">
-                  <div className="spinner" />
-                  <div className="loading-text">
-                    generating cheat sheet
-                    <span className="cursor-blink">_</span>
+                    pick a tool from the sidebar, then press LOAD
                   </div>
                 </div>
               )}
 
               {error && <div className="error-box">⚠ {error}</div>}
 
-              {!loading && sheet && (
+              {sheet && (
                 <div>
                   <div className="sheet-header">
                     <div className="sheet-title">{sheet.title}</div>
@@ -244,11 +214,11 @@ export default function TermrefApp() {
       </div>
 
       <footer className="footer">
-        <span>TERMREF v1.0 · AI-GENERATED CONTENT — VERIFY BEFORE USE</span>
+        <span>TERMREF v1.0 · CURATED CONTENT — VERIFY BEFORE USE</span>
         <span>
           {sheet
-            ? `last generated: ${new Date().toLocaleTimeString()}`
-            : "no sheet generated"}
+            ? `loaded: ${new Date().toLocaleTimeString()}`
+            : "no sheet loaded"}
         </span>
       </footer>
     </div>

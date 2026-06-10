@@ -1,0 +1,215 @@
+{
+  "title": "Airflow Cheat Sheet",
+  "sections": [
+    {
+      "title": "Setup & Initialization",
+      "commands": [
+        {
+          "cmd": "pip install apache-airflow",
+          "desc": "Install Apache Airflow via pip."
+        },
+        {
+          "cmd": "airflow db init",
+          "desc": "Initialize the Airflow metadata database."
+        },
+        {
+          "cmd": "airflow db upgrade",
+          "desc": "Upgrade the metadata database to latest schema."
+        },
+        {
+          "cmd": "airflow db reset",
+          "desc": "Reset the metadata database (destructive)."
+        },
+        {
+          "cmd": "export AIRFLOW_HOME=~/airflow",
+          "desc": "Set the Airflow home directory."
+        },
+        {
+          "cmd": "airflow config get-value core executor",
+          "desc": "Get a specific Airflow config value."
+        },
+        {
+          "cmd": "airflow info",
+          "desc": "Display Airflow system and environment info."
+        }
+      ]
+    },
+    {
+      "title": "Webserver & Scheduler",
+      "commands": [
+        {
+          "cmd": "airflow webserver --port 8080",
+          "desc": "Start the Airflow web UI on port 8080."
+        },
+        {
+          "cmd": "airflow webserver -D",
+          "desc": "Start the webserver as a background daemon."
+        },
+        {
+          "cmd": "airflow scheduler",
+          "desc": "Start the Airflow task scheduler."
+        },
+        {
+          "cmd": "airflow scheduler -D",
+          "desc": "Start the scheduler as a background daemon."
+        },
+        {
+          "cmd": "airflow celery worker",
+          "desc": "Start a Celery worker for task execution."
+        },
+        {
+          "cmd": "airflow celery flower",
+          "desc": "Start Flower UI to monitor Celery workers."
+        },
+        {
+          "cmd": "airflow triggerer",
+          "desc": "Start the triggerer for deferrable operators."
+        }
+      ]
+    },
+    {
+      "title": "DAG Management",
+      "commands": [
+        {
+          "cmd": "airflow dags list",
+          "desc": "List all available DAGs in the system."
+        },
+        {
+          "cmd": "airflow dags trigger <dag_id>",
+          "desc": "Manually trigger a DAG run."
+        },
+        {
+          "cmd": "airflow dags pause <dag_id>",
+          "desc": "Pause a DAG to stop scheduling."
+        },
+        {
+          "cmd": "airflow dags unpause <dag_id>",
+          "desc": "Unpause a DAG to resume scheduling."
+        },
+        {
+          "cmd": "airflow dags delete <dag_id>",
+          "desc": "Delete a DAG and all its metadata."
+        },
+        {
+          "cmd": "airflow dags show <dag_id>",
+          "desc": "Display a DAG's structure as a graph."
+        },
+        {
+          "cmd": "airflow dags backfill -s 2024-01-01 -e 2024-01-31 <dag_id>",
+          "desc": "Backfill DAG runs for a date range."
+        },
+        {
+          "cmd": "airflow dags list-runs -d <dag_id>",
+          "desc": "List all runs for a specific DAG."
+        }
+      ]
+    },
+    {
+      "title": "Task Management",
+      "commands": [
+        {
+          "cmd": "airflow tasks list <dag_id>",
+          "desc": "List all tasks in a specific DAG."
+        },
+        {
+          "cmd": "airflow tasks run <dag_id> <task_id> <execution_date>",
+          "desc": "Run a specific task instance manually."
+        },
+        {
+          "cmd": "airflow tasks test <dag_id> <task_id> <execution_date>",
+          "desc": "Test a task without storing metadata."
+        },
+        {
+          "cmd": "airflow tasks clear <dag_id>",
+          "desc": "Clear task instances to re-run them."
+        },
+        {
+          "cmd": "airflow tasks state <dag_id> <task_id> <execution_date>",
+          "desc": "Get the state of a task instance."
+        },
+        {
+          "cmd": "airflow tasks failed-deps <dag_id> <task_id> <execution_date>",
+          "desc": "Check why a task's dependencies failed."
+        },
+        {
+          "cmd": "airflow tasks render <dag_id> <task_id> <execution_date>",
+          "desc": "Render templated fields for a task."
+        }
+      ]
+    },
+    {
+      "title": "Variables & Connections",
+      "commands": [
+        {
+          "cmd": "airflow variables set <key> <value>",
+          "desc": "Set an Airflow variable key-value pair."
+        },
+        {
+          "cmd": "airflow variables get <key>",
+          "desc": "Get the value of an Airflow variable."
+        },
+        {
+          "cmd": "airflow variables delete <key>",
+          "desc": "Delete an Airflow variable by key."
+        },
+        {
+          "cmd": "airflow variables export variables.json",
+          "desc": "Export all variables to a JSON file."
+        },
+        {
+          "cmd": "airflow variables import variables.json",
+          "desc": "Import variables from a JSON file."
+        },
+        {
+          "cmd": "airflow connections add <conn_id> --conn-type http --conn-host localhost",
+          "desc": "Add a new Airflow connection."
+        },
+        {
+          "cmd": "airflow connections list",
+          "desc": "List all configured Airflow connections."
+        },
+        {
+          "cmd": "airflow connections delete <conn_id>",
+          "desc": "Delete a specific Airflow connection."
+        }
+      ]
+    },
+    {
+      "title": "Users & Roles",
+      "commands": [
+        {
+          "cmd": "airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com",
+          "desc": "Create a new Airflow UI user."
+        },
+        {
+          "cmd": "airflow users list",
+          "desc": "List all Airflow UI users."
+        },
+        {
+          "cmd": "airflow users delete --username <username>",
+          "desc": "Delete an Airflow user by username."
+        },
+        {
+          "cmd": "airflow roles list",
+          "desc": "List all available Airflow roles."
+        },
+        {
+          "cmd": "airflow roles create <role_name>",
+          "desc": "Create a new custom Airflow role."
+        },
+        {
+          "cmd": "airflow users add-role --username <user> --role <role>",
+          "desc": "Assign a role to an existing user."
+        },
+        {
+          "cmd": "airflow pools list",
+          "desc": "List all configured Airflow worker pools."
+        },
+        {
+          "cmd": "airflow pools set <pool_name> <slots> 'description'",
+          "desc": "Create or update a worker pool."
+        }
+      ]
+    }
+  ]
+}

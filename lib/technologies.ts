@@ -28,8 +28,13 @@ export const CATEGORIES = [
   ...new Set(TECHNOLOGIES.map((t) => t.category)),
 ];
 
-const VALID_LABELS = new Set(TECHNOLOGIES.map((t) => t.label));
+const VALID_IDS = new Set(TECHNOLOGIES.map((t) => t.id));
 
-export function isValidTechLabel(label: unknown): label is string {
-  return typeof label === "string" && VALID_LABELS.has(label);
+export function getTechById(id: string): Technology | undefined {
+  return TECHNOLOGIES.find((t) => t.id === id);
 }
+
+export function isValidTechId(id: unknown): id is string {
+  return typeof id === "string" && VALID_IDS.has(id);
+}
+

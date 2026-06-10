@@ -1,0 +1,79 @@
+{
+  "title": "SnowSQL Cheat Sheet",
+  "sections": [
+    {
+      "title": "CONNECTION",
+      "commands": [
+        { "cmd": "snowsql -a <account> -u <user>", "desc": "Connect to Snowflake account" },
+        { "cmd": "snowsql -c myconnection", "desc": "Connect using a named config entry" },
+        { "cmd": "snowsql -a <account> -u <user> -d <db> -s <schema>", "desc": "Connect with database and schema set" },
+        { "cmd": "!help", "desc": "Show SnowSQL built-in help commands" },
+        { "cmd": "!quit", "desc": "Exit the SnowSQL session" },
+        { "cmd": "!set output_format=table", "desc": "Set query result output format" },
+        { "cmd": "!set timing=true", "desc": "Show execution time after each query" }
+      ]
+    },
+    {
+      "title": "SESSION CONTEXT",
+      "commands": [
+        { "cmd": "USE ROLE analyst;", "desc": "Switch to a different role" },
+        { "cmd": "USE WAREHOUSE compute_wh;", "desc": "Select active compute warehouse" },
+        { "cmd": "USE DATABASE prod;", "desc": "Set current database context" },
+        { "cmd": "USE SCHEMA public;", "desc": "Set current schema context" },
+        { "cmd": "SELECT CURRENT_USER(), CURRENT_ROLE();", "desc": "Show current user and role" },
+        { "cmd": "SELECT CURRENT_DATABASE(), CURRENT_SCHEMA();", "desc": "Show current database and schema" },
+        { "cmd": "ALTER SESSION SET TIMEZONE = 'UTC';", "desc": "Set session timezone to UTC" }
+      ]
+    },
+    {
+      "title": "QUERYING",
+      "commands": [
+        { "cmd": "SHOW TABLES;", "desc": "List tables in current schema" },
+        { "cmd": "SHOW VIEWS;", "desc": "List views in current schema" },
+        { "cmd": "DESCRIBE TABLE events;", "desc": "Show column metadata for a table" },
+        { "cmd": "SELECT * FROM events LIMIT 100;", "desc": "Preview first 100 rows of a table" },
+        { "cmd": "SHOW WAREHOUSES;", "desc": "List warehouses available to current role" },
+        { "cmd": "SHOW GRANTS TO ROLE analyst;", "desc": "Show grants assigned to a role" },
+        { "cmd": "SHOW ROLES;", "desc": "List roles visible to current user" },
+        { "cmd": "EXPLAIN SELECT * FROM events;", "desc": "Show query execution plan" }
+      ]
+    },
+    {
+      "title": "LOADING & FILES",
+      "commands": [
+        { "cmd": "PUT file://data.csv @%mytable;", "desc": "Upload local file to table stage" },
+        { "cmd": "COPY INTO mytable FROM @%mytable;", "desc": "Load staged file into target table" },
+        { "cmd": "COPY INTO mytable FILE_FORMAT=(TYPE=CSV);", "desc": "Load CSV with explicit file format" },
+        { "cmd": "LIST @%mytable;", "desc": "List files in a table stage" },
+        { "cmd": "REMOVE @%mytable;", "desc": "Remove staged files from table stage" },
+        { "cmd": "GET @%mytable file:///tmp/;", "desc": "Download staged files to local path" },
+        { "cmd": "CREATE STAGE mystage;", "desc": "Create a named internal stage" }
+      ]
+    },
+    {
+      "title": "SESSION CONTROL",
+      "commands": [
+        { "cmd": "ALTER WAREHOUSE wh SET WAREHOUSE_SIZE=XSMALL;", "desc": "Resize warehouse compute capacity" },
+        { "cmd": "ALTER WAREHOUSE wh SUSPEND;", "desc": "Suspend warehouse to stop billing" },
+        { "cmd": "ALTER WAREHOUSE wh RESUME;", "desc": "Resume a suspended warehouse" },
+        { "cmd": "BEGIN;", "desc": "Start an explicit SQL transaction" },
+        { "cmd": "COMMIT;", "desc": "Commit current transaction changes" },
+        { "cmd": "ROLLBACK;", "desc": "Roll back current transaction changes" },
+        { "cmd": "ALTER SESSION SET QUERY_TAG = 'etl';", "desc": "Tag queries for monitoring and cost tracking" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "CREATE TABLE t (id INT, name VARCHAR);", "desc": "Create a new table in current schema" },
+        { "cmd": "CREATE OR REPLACE VIEW v AS SELECT * FROM t;", "desc": "Create or replace a view definition" },
+        { "cmd": "GRANT SELECT ON TABLE t TO ROLE analyst;", "desc": "Grant read access on a table to role" },
+        { "cmd": "CREATE USER new_user PASSWORD='secret';", "desc": "Create a new Snowflake user" },
+        { "cmd": "SHOW PARAMETERS LIKE 'TIMEZONE';", "desc": "Show account or session parameter values" },
+        { "cmd": "SELECT SYSTEM$CLUSTERING_INFORMATION('t');", "desc": "Check clustering quality for a table" },
+        { "cmd": "CALL my_procedure();", "desc": "Execute a stored procedure" },
+        { "cmd": "SELECT * FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY());", "desc": "Query recent SQL execution history" }
+      ]
+    }
+  ]
+}

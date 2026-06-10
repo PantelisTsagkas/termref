@@ -1,0 +1,215 @@
+{
+  "title": "Terraform Cheat Sheet",
+  "sections": [
+    {
+      "title": "SETUP & INITIALIZATION",
+      "commands": [
+        {
+          "cmd": "terraform version",
+          "desc": "Display the installed Terraform version."
+        },
+        {
+          "cmd": "terraform init",
+          "desc": "Initialize a working directory and download providers."
+        },
+        {
+          "cmd": "terraform init -upgrade",
+          "desc": "Upgrade providers to latest allowed versions."
+        },
+        {
+          "cmd": "terraform init -backend-config=backend.hcl",
+          "desc": "Initialize with a partial backend configuration file."
+        },
+        {
+          "cmd": "terraform init -reconfigure",
+          "desc": "Reconfigure backend, ignoring saved settings."
+        },
+        {
+          "cmd": "terraform providers",
+          "desc": "Show providers required by current configuration."
+        },
+        {
+          "cmd": "terraform providers lock",
+          "desc": "Update the dependency lock file for providers."
+        }
+      ]
+    },
+    {
+      "title": "PLAN & APPLY",
+      "commands": [
+        {
+          "cmd": "terraform plan",
+          "desc": "Preview changes without applying them."
+        },
+        {
+          "cmd": "terraform plan -out=tfplan",
+          "desc": "Save the plan to a file for later use."
+        },
+        {
+          "cmd": "terraform plan -var='key=value'",
+          "desc": "Pass a variable value at plan time."
+        },
+        {
+          "cmd": "terraform plan -var-file=vars.tfvars",
+          "desc": "Load variables from a .tfvars file."
+        },
+        {
+          "cmd": "terraform apply",
+          "desc": "Apply changes to reach the desired state."
+        },
+        {
+          "cmd": "terraform apply tfplan",
+          "desc": "Apply a previously saved plan file."
+        },
+        {
+          "cmd": "terraform apply -auto-approve",
+          "desc": "Apply changes without interactive confirmation."
+        },
+        {
+          "cmd": "terraform apply -target=resource.name",
+          "desc": "Apply changes only to a specific resource."
+        }
+      ]
+    },
+    {
+      "title": "STATE MANAGEMENT",
+      "commands": [
+        {
+          "cmd": "terraform show",
+          "desc": "Display current state or a saved plan."
+        },
+        {
+          "cmd": "terraform state list",
+          "desc": "List all resources tracked in state."
+        },
+        {
+          "cmd": "terraform state show resource.name",
+          "desc": "Show detailed attributes of a state resource."
+        },
+        {
+          "cmd": "terraform state mv src dst",
+          "desc": "Move a resource to a new state address."
+        },
+        {
+          "cmd": "terraform state rm resource.name",
+          "desc": "Remove a resource from state without destroying it."
+        },
+        {
+          "cmd": "terraform state pull",
+          "desc": "Download and print the remote state."
+        },
+        {
+          "cmd": "terraform state push terraform.tfstate",
+          "desc": "Upload a local state file to remote backend."
+        },
+        {
+          "cmd": "terraform refresh",
+          "desc": "Sync state with real infrastructure."
+        }
+      ]
+    },
+    {
+      "title": "DESTROY & CLEANUP",
+      "commands": [
+        {
+          "cmd": "terraform destroy",
+          "desc": "Destroy all managed infrastructure resources."
+        },
+        {
+          "cmd": "terraform destroy -auto-approve",
+          "desc": "Destroy resources without interactive confirmation."
+        },
+        {
+          "cmd": "terraform destroy -target=resource.name",
+          "desc": "Destroy only a specific targeted resource."
+        },
+        {
+          "cmd": "terraform plan -destroy",
+          "desc": "Preview what a destroy operation would remove."
+        },
+        {
+          "cmd": "terraform apply -destroy",
+          "desc": "Destroy infrastructure using apply workflow."
+        },
+        {
+          "cmd": "rm -rf .terraform/",
+          "desc": "Remove local provider plugin cache directory."
+        },
+        {
+          "cmd": "rm terraform.tfstate*",
+          "desc": "Delete local state files (use with caution)."
+        }
+      ]
+    },
+    {
+      "title": "VALIDATION & FORMATTING",
+      "commands": [
+        {
+          "cmd": "terraform validate",
+          "desc": "Check configuration for syntax and logic errors."
+        },
+        {
+          "cmd": "terraform fmt",
+          "desc": "Format configuration files to canonical style."
+        },
+        {
+          "cmd": "terraform fmt -check",
+          "desc": "Check formatting without modifying files."
+        },
+        {
+          "cmd": "terraform fmt -recursive",
+          "desc": "Format files in all subdirectories recursively."
+        },
+        {
+          "cmd": "terraform console",
+          "desc": "Open interactive console to evaluate expressions."
+        },
+        {
+          "cmd": "terraform output",
+          "desc": "Display all defined output values."
+        },
+        {
+          "cmd": "terraform output output_name",
+          "desc": "Display value of a specific output variable."
+        }
+      ]
+    },
+    {
+      "title": "WORKSPACES & ADVANCED",
+      "commands": [
+        {
+          "cmd": "terraform workspace list",
+          "desc": "List all available workspaces."
+        },
+        {
+          "cmd": "terraform workspace new staging",
+          "desc": "Create and switch to a new workspace."
+        },
+        {
+          "cmd": "terraform workspace select production",
+          "desc": "Switch to an existing named workspace."
+        },
+        {
+          "cmd": "terraform workspace show",
+          "desc": "Display the currently active workspace name."
+        },
+        {
+          "cmd": "terraform workspace delete staging",
+          "desc": "Delete an existing workspace."
+        },
+        {
+          "cmd": "terraform import resource.name id",
+          "desc": "Import existing infrastructure into Terraform state."
+        },
+        {
+          "cmd": "terraform taint resource.name",
+          "desc": "Mark a resource for recreation on next apply."
+        },
+        {
+          "cmd": "terraform graph | dot -",
+          "desc": "Tpng > graph.pngGenerate a visual dependency graph image."
+        }
+      ]
+    }
+  ]
+}

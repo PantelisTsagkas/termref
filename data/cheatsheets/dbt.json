@@ -1,0 +1,78 @@
+{
+  "title": "dbt Cheat Sheet",
+  "sections": [
+    {
+      "title": "PROJECT SETUP",
+      "commands": [
+        { "cmd": "dbt init", "desc": "Initialize a new dbt project" },
+        { "cmd": "dbt debug", "desc": "Test connection and validate profiles" },
+        { "cmd": "dbt deps", "desc": "Install packages from packages.yml" },
+        { "cmd": "dbt clean", "desc": "Remove target and dbt_packages directories" },
+        { "cmd": "dbt parse", "desc": "Parse project files without executing models" },
+        { "cmd": "dbt environment show", "desc": "Show active dbt environment details" },
+        { "cmd": "dbt --version", "desc": "Display installed dbt version" }
+      ]
+    },
+    {
+      "title": "RUN & BUILD",
+      "commands": [
+        { "cmd": "dbt run", "desc": "Execute all models in the project" },
+        { "cmd": "dbt run --select model_name", "desc": "Run a specific model" },
+        { "cmd": "dbt run --select tag:nightly", "desc": "Run models matching a tag selector" },
+        { "cmd": "dbt build", "desc": "Run models, tests, and snapshots together" },
+        { "cmd": "dbt run --full-refresh", "desc": "Fully rebuild incremental models" },
+        { "cmd": "dbt compile", "desc": "Compile SQL without executing against warehouse" },
+        { "cmd": "dbt run-operation macro_name", "desc": "Invoke a project macro operation" }
+      ]
+    },
+    {
+      "title": "TESTING",
+      "commands": [
+        { "cmd": "dbt test", "desc": "Run all data and schema tests" },
+        { "cmd": "dbt test --select model_name", "desc": "Run tests for a specific model" },
+        { "cmd": "dbt test --select source:*", "desc": "Run all source freshness and tests" },
+        { "cmd": "dbt test --store-failures", "desc": "Persist failing test rows to tables" },
+        { "cmd": "dbt source freshness", "desc": "Check source data freshness thresholds" },
+        { "cmd": "dbt test --select test_type:unit", "desc": "Run unit tests only" },
+        { "cmd": "dbt test --warn-error", "desc": "Treat test warnings as errors" }
+      ]
+    },
+    {
+      "title": "DOCS & INSPECT",
+      "commands": [
+        { "cmd": "dbt docs generate", "desc": "Generate documentation artifacts" },
+        { "cmd": "dbt docs serve", "desc": "Serve project docs locally in browser" },
+        { "cmd": "dbt ls", "desc": "List resources matching a selector" },
+        { "cmd": "dbt show --select model_name", "desc": "Preview compiled model output" },
+        { "cmd": "dbt list --resource-type model", "desc": "List all models in the project" },
+        { "cmd": "dbt list --output json", "desc": "List resources as JSON output" },
+        { "cmd": "dbt compile --select model_name", "desc": "Inspect compiled SQL for a model" }
+      ]
+    },
+    {
+      "title": "SNAPSHOTS & SEEDS",
+      "commands": [
+        { "cmd": "dbt seed", "desc": "Load CSV seed files into the warehouse" },
+        { "cmd": "dbt seed --select seed_name", "desc": "Load a specific seed file" },
+        { "cmd": "dbt seed --full-refresh", "desc": "Drop and reload all seed tables" },
+        { "cmd": "dbt snapshot", "desc": "Run all configured snapshot models" },
+        { "cmd": "dbt snapshot --select snapshot_name", "desc": "Run a specific snapshot model" },
+        { "cmd": "dbt run --select state:modified", "desc": "Run only modified models in state" },
+        { "cmd": "dbt clone --select state:modified", "desc": "Clone modified models from prior state" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "dbt run --vars '{key: value}'", "desc": "Pass runtime variables to models" },
+        { "cmd": "dbt retry", "desc": "Retry failed nodes from previous invocation" },
+        { "cmd": "dbt retry --select model_name", "desc": "Retry a specific failed node" },
+        { "cmd": "dbt compile --inline \"select 1\"", "desc": "Compile ad hoc inline SQL" },
+        { "cmd": "dbt run --empty", "desc": "Build models using empty source inputs" },
+        { "cmd": "dbt source snapshot-freshness", "desc": "Generate source freshness snapshot artifact" },
+        { "cmd": "dbt list --select +model_name", "desc": "Select model and all upstream parents" },
+        { "cmd": "dbt list --select model_name+", "desc": "Select model and all downstream children" }
+      ]
+    }
+  ]
+}

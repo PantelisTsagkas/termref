@@ -1,0 +1,79 @@
+{
+  "title": "Kubernetes Cheat Sheet",
+  "sections": [
+    {
+      "title": "CONTEXT & INFO",
+      "commands": [
+        { "cmd": "kubectl config current-context", "desc": "Show the active cluster context" },
+        { "cmd": "kubectl config get-contexts", "desc": "List all available contexts" },
+        { "cmd": "kubectl config use-context <name>", "desc": "Switch to a different context" },
+        { "cmd": "kubectl cluster-info", "desc": "Show cluster endpoint and core services" },
+        { "cmd": "kubectl version", "desc": "Show client and server versions" },
+        { "cmd": "kubectl api-resources", "desc": "List supported API resource types" },
+        { "cmd": "kubectl explain pod", "desc": "Show documentation for a resource type" }
+      ]
+    },
+    {
+      "title": "PODS",
+      "commands": [
+        { "cmd": "kubectl get pods", "desc": "List pods in the current namespace" },
+        { "cmd": "kubectl get pods -A", "desc": "List pods across all namespaces" },
+        { "cmd": "kubectl describe pod <name>", "desc": "Show detailed pod info and events" },
+        { "cmd": "kubectl logs <pod>", "desc": "View logs from a pod" },
+        { "cmd": "kubectl logs -f <pod>", "desc": "Stream live logs from a pod" },
+        { "cmd": "kubectl exec -it <pod> -- bash", "desc": "Open an interactive shell in a pod" },
+        { "cmd": "kubectl delete pod <name>", "desc": "Delete a pod" },
+        { "cmd": "kubectl get pods -o wide", "desc": "List pods with node and IP details" }
+      ]
+    },
+    {
+      "title": "DEPLOYMENTS",
+      "commands": [
+        { "cmd": "kubectl get deployments", "desc": "List all deployments" },
+        { "cmd": "kubectl apply -f <file>", "desc": "Apply a manifest from a YAML file" },
+        { "cmd": "kubectl rollout status deploy/<name>", "desc": "Watch rollout progress" },
+        { "cmd": "kubectl rollout undo deploy/<name>", "desc": "Roll back to previous revision" },
+        { "cmd": "kubectl rollout history deploy/<name>", "desc": "Show rollout revision history" },
+        { "cmd": "kubectl scale deploy/<name> --replicas=3", "desc": "Scale deployment replica count" },
+        { "cmd": "kubectl set image deploy/<name> <container>=<image>", "desc": "Update container image" }
+      ]
+    },
+    {
+      "title": "SERVICES & NETWORKING",
+      "commands": [
+        { "cmd": "kubectl get svc", "desc": "List services in the namespace" },
+        { "cmd": "kubectl describe svc <name>", "desc": "Show service details and endpoints" },
+        { "cmd": "kubectl port-forward <pod> 8080:80", "desc": "Forward a local port to a pod" },
+        { "cmd": "kubectl port-forward svc/<name> 8080:80", "desc": "Forward a local port to a service" },
+        { "cmd": "kubectl get ingress", "desc": "List ingress resources" },
+        { "cmd": "kubectl get endpoints", "desc": "List service endpoint targets" },
+        { "cmd": "kubectl run curl --image=curlimages/curl -it --rm -- sh", "desc": "Run ephemeral pod for network tests" }
+      ]
+    },
+    {
+      "title": "DEBUGGING",
+      "commands": [
+        { "cmd": "kubectl get events --sort-by=.lastTimestamp", "desc": "Show recent cluster events" },
+        { "cmd": "kubectl top pods", "desc": "Show pod CPU and memory usage" },
+        { "cmd": "kubectl top nodes", "desc": "Show node CPU and memory usage" },
+        { "cmd": "kubectl auth can-i create pods", "desc": "Check current RBAC permissions" },
+        { "cmd": "kubectl logs <pod> -c <container>", "desc": "View logs from a specific container" },
+        { "cmd": "kubectl cp <pod>:/path ./local", "desc": "Copy files from a pod to local disk" },
+        { "cmd": "kubectl debug <pod> -it --image=busybox", "desc": "Attach ephemeral debug container" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "kubectl get all -n <namespace>", "desc": "List common resources in a namespace" },
+        { "cmd": "kubectl create namespace <name>", "desc": "Create a new namespace" },
+        { "cmd": "kubectl config set-context --current --namespace=<ns>", "desc": "Set default namespace for context" },
+        { "cmd": "kubectl get pods --field-selector=status.phase=Failed", "desc": "Filter pods by field selector" },
+        { "cmd": "kubectl label pod <name> env=prod", "desc": "Add a label to a pod" },
+        { "cmd": "kubectl taint nodes <node> key=value:NoSchedule", "desc": "Add a taint to a node" },
+        { "cmd": "kubectl drain <node> --ignore-daemonsets", "desc": "Safely evict pods before node maintenance" },
+        { "cmd": "kubectl diff -f <file>", "desc": "Preview changes before applying manifest" }
+      ]
+    }
+  ]
+}

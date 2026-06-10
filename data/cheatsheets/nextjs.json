@@ -1,0 +1,79 @@
+{
+  "title": "Next.js Cheat Sheet",
+  "sections": [
+    {
+      "title": "PROJECT & SCRIPTS",
+      "commands": [
+        { "cmd": "npx create-next-app@latest", "desc": "Scaffold a new Next.js application" },
+        { "cmd": "npm run dev", "desc": "Start local development server" },
+        { "cmd": "npm run build", "desc": "Create an optimized production build" },
+        { "cmd": "npm run start", "desc": "Start production server after build" },
+        { "cmd": "npm run lint", "desc": "Run ESLint across the project" },
+        { "cmd": "npx next info", "desc": "Print Next.js and system environment info" },
+        { "cmd": "npx next telemetry disable", "desc": "Disable anonymous Next.js telemetry" }
+      ]
+    },
+    {
+      "title": "APP ROUTER FILES",
+      "commands": [
+        { "cmd": "app/page.tsx", "desc": "Route segment UI for a URL path" },
+        { "cmd": "app/layout.tsx", "desc": "Shared layout wrapper for a route segment" },
+        { "cmd": "app/loading.tsx", "desc": "Instant loading UI via React Suspense" },
+        { "cmd": "app/error.tsx", "desc": "Error boundary UI for a route segment" },
+        { "cmd": "app/not-found.tsx", "desc": "Custom UI for not-found responses" },
+        { "cmd": "app/api/route.ts", "desc": "Route Handler for HTTP API endpoints" },
+        { "cmd": "app/[slug]/page.tsx", "desc": "Dynamic route segment page" },
+        { "cmd": "middleware.ts", "desc": "Run code before a request is completed" }
+      ]
+    },
+    {
+      "title": "DATA FETCHING",
+      "commands": [
+        { "cmd": "fetch(url, { cache: 'force-cache' })", "desc": "Static cached fetch in Server Component" },
+        { "cmd": "fetch(url, { next: { revalidate: 60 } })", "desc": "Revalidate cached data every 60 seconds" },
+        { "cmd": "fetch(url, { cache: 'no-store' })", "desc": "Fetch fresh data on every request" },
+        { "cmd": "await cookies()", "desc": "Read request cookies in Server Component" },
+        { "cmd": "await headers()", "desc": "Read request headers in Server Component" },
+        { "cmd": "export const dynamic = 'force-dynamic'", "desc": "Opt route segment into dynamic rendering" },
+        { "cmd": "export const revalidate = 3600", "desc": "Set default revalidation interval in seconds" }
+      ]
+    },
+    {
+      "title": "SERVER ACTIONS & CACHE",
+      "commands": [
+        { "cmd": "'use server'", "desc": "Mark function or file as Server Action" },
+        { "cmd": "revalidatePath('/posts')", "desc": "Invalidate cached data for a route path" },
+        { "cmd": "revalidateTag('posts')", "desc": "Invalidate cached data by tag" },
+        { "cmd": "redirect('/login')", "desc": "Redirect user from server-side code" },
+        { "cmd": "notFound()", "desc": "Trigger a not-found response from server code" },
+        { "cmd": "unstable_cache(fn, keys, opts)", "desc": "Cache expensive server function results" },
+        { "cmd": "cacheTag('products')", "desc": "Associate cached output with a tag" }
+      ]
+    },
+    {
+      "title": "DEPLOYMENT",
+      "commands": [
+        { "cmd": "npx vercel", "desc": "Deploy preview build to Vercel" },
+        { "cmd": "npx vercel --prod", "desc": "Deploy production build to Vercel" },
+        { "cmd": "vercel env pull .env.local", "desc": "Pull Vercel environment variables locally" },
+        { "cmd": "vercel logs <deployment>", "desc": "Stream logs for a Vercel deployment" },
+        { "cmd": "vercel inspect <url>", "desc": "Inspect deployment build and runtime details" },
+        { "cmd": "next.config.ts", "desc": "Configure Next.js build and runtime behavior" },
+        { "cmd": "vercel.json / vercel.ts", "desc": "Configure Vercel routing and platform settings" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "'use client'", "desc": "Mark component for client-side rendering" },
+        { "cmd": "generateMetadata()", "desc": "Define dynamic SEO metadata in App Router" },
+        { "cmd": "generateStaticParams()", "desc": "Pre-render dynamic route params at build time" },
+        { "cmd": "next/image", "desc": "Optimized image component with lazy loading" },
+        { "cmd": "next/link", "desc": "Client-side navigation between routes" },
+        { "cmd": "draftMode()", "desc": "Enable preview of draft CMS content" },
+        { "cmd": "after(() => { ... })", "desc": "Schedule work after response is sent" },
+        { "cmd": "npx @next/codemod <transform>", "desc": "Run official Next.js codemod migration" }
+      ]
+    }
+  ]
+}

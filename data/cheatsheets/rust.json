@@ -1,0 +1,78 @@
+{
+  "title": "Cargo / Rust Cheat Sheet",
+  "sections": [
+    {
+      "title": "PROJECT SETUP",
+      "commands": [
+        { "cmd": "cargo new myapp", "desc": "Create a new binary Rust project" },
+        { "cmd": "cargo new --lib mylib", "desc": "Create a new library Rust project" },
+        { "cmd": "cargo init", "desc": "Initialize Cargo project in current directory" },
+        { "cmd": "rustc --version", "desc": "Show installed Rust compiler version" },
+        { "cmd": "rustup show", "desc": "Show active toolchain and targets" },
+        { "cmd": "rustup default stable", "desc": "Set stable as default toolchain" },
+        { "cmd": "rustup target add wasm32-unknown-unknown", "desc": "Add compilation target for WebAssembly" }
+      ]
+    },
+    {
+      "title": "BUILD & RUN",
+      "commands": [
+        { "cmd": "cargo build", "desc": "Compile project in debug mode" },
+        { "cmd": "cargo build --release", "desc": "Compile optimized release build" },
+        { "cmd": "cargo run", "desc": "Build and run the default binary" },
+        { "cmd": "cargo run --bin <name>", "desc": "Run a specific binary target" },
+        { "cmd": "cargo check", "desc": "Type-check without producing binaries" },
+        { "cmd": "rustc main.rs", "desc": "Compile a single file without Cargo" },
+        { "cmd": "cargo watch -x run", "desc": "Rebuild and rerun on file changes" }
+      ]
+    },
+    {
+      "title": "TESTING & DOCS",
+      "commands": [
+        { "cmd": "cargo test", "desc": "Run all unit and integration tests" },
+        { "cmd": "cargo test test_name", "desc": "Run tests matching a name filter" },
+        { "cmd": "cargo test -- --nocapture", "desc": "Run tests and show stdout output" },
+        { "cmd": "cargo test --doc", "desc": "Run documentation tests only" },
+        { "cmd": "cargo doc", "desc": "Build project documentation" },
+        { "cmd": "cargo doc --open", "desc": "Build docs and open in browser" },
+        { "cmd": "cargo bench", "desc": "Run benchmark tests" }
+      ]
+    },
+    {
+      "title": "DEPENDENCIES",
+      "commands": [
+        { "cmd": "cargo add serde", "desc": "Add dependency to Cargo.toml" },
+        { "cmd": "cargo add serde --features derive", "desc": "Add dependency with enabled features" },
+        { "cmd": "cargo add tokio --dev", "desc": "Add development-only dependency" },
+        { "cmd": "cargo remove serde", "desc": "Remove dependency from Cargo.toml" },
+        { "cmd": "cargo update", "desc": "Update dependencies in Cargo.lock" },
+        { "cmd": "cargo tree", "desc": "Display dependency tree" },
+        { "cmd": "cargo vendor", "desc": "Vendor dependencies into project directory" }
+      ]
+    },
+    {
+      "title": "QUALITY & TOOLING",
+      "commands": [
+        { "cmd": "cargo clippy", "desc": "Run Clippy lints on the project" },
+        { "cmd": "cargo fmt", "desc": "Format code with rustfmt" },
+        { "cmd": "cargo fmt --check", "desc": "Check formatting without writing files" },
+        { "cmd": "cargo clean", "desc": "Remove build artifacts from target directory" },
+        { "cmd": "cargo metadata", "desc": "Output project metadata as JSON" },
+        { "cmd": "rustup update", "desc": "Update installed Rust toolchains" },
+        { "cmd": "rustup component add rust-analyzer", "desc": "Install rust-analyzer language server" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "cargo publish", "desc": "Publish crate to crates.io registry" },
+        { "cmd": "cargo package", "desc": "Create distributable crate tarball" },
+        { "cmd": "cargo install <crate>", "desc": "Install binary crate globally" },
+        { "cmd": "cargo build -Z build-std", "desc": "Build standard library from source" },
+        { "cmd": "cargo llvm-cov", "desc": "Generate code coverage report" },
+        { "cmd": "cargo expand", "desc": "Expand macros for debugging generated code" },
+        { "cmd": "cross build --target aarch64-unknown-linux-gnu", "desc": "Cross-compile for another architecture" },
+        { "cmd": "RUST_BACKTRACE=1 cargo run", "desc": "Run with full panic backtrace enabled" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "title": "Linux Cheat Sheet",
+  "sections": [
+    {
+      "title": "SYSTEM INFO",
+      "commands": [
+        { "cmd": "uname -a", "desc": "Show kernel version and system architecture" },
+        { "cmd": "hostnamectl", "desc": "Display hostname and operating system details" },
+        { "cmd": "uptime", "desc": "Show system uptime and load averages" },
+        { "cmd": "free -h", "desc": "Display memory usage in human-readable units" },
+        { "cmd": "lscpu", "desc": "Show CPU architecture and core information" },
+        { "cmd": "lsblk", "desc": "List block devices and mount points" },
+        { "cmd": "cat /etc/os-release", "desc": "Show Linux distribution information" }
+      ]
+    },
+    {
+      "title": "USERS & SERVICES",
+      "commands": [
+        { "cmd": "whoami", "desc": "Print the current logged-in username" },
+        { "cmd": "id", "desc": "Show user ID, group ID, and group memberships" },
+        { "cmd": "sudo systemctl status <service>", "desc": "Check status of a systemd service" },
+        { "cmd": "sudo systemctl start <service>", "desc": "Start a systemd service" },
+        { "cmd": "sudo systemctl enable <service>", "desc": "Enable service to start on boot" },
+        { "cmd": "sudo journalctl -u <service> -f", "desc": "Follow logs for a systemd service" },
+        { "cmd": "sudo useradd -m <user>", "desc": "Create a new user with home directory" },
+        { "cmd": "passwd <user>", "desc": "Set or change a user password" }
+      ]
+    },
+    {
+      "title": "NETWORKING",
+      "commands": [
+        { "cmd": "ip addr", "desc": "Show IP addresses for network interfaces" },
+        { "cmd": "ip route", "desc": "Display kernel routing table" },
+        { "cmd": "ss -tulpn", "desc": "List listening TCP and UDP ports" },
+        { "cmd": "ping -c 4 <host>", "desc": "Send four ICMP echo requests to host" },
+        { "cmd": "curl -I https://example.com", "desc": "Fetch HTTP response headers from URL" },
+        { "cmd": "dig <domain>", "desc": "Query DNS records for a domain" },
+        { "cmd": "traceroute <host>", "desc": "Trace network path to destination host" },
+        { "cmd": "sudo ufw status", "desc": "Show firewall status on Ubuntu systems" }
+      ]
+    },
+    {
+      "title": "PACKAGES",
+      "commands": [
+        { "cmd": "sudo apt update", "desc": "Refresh package index on Debian/Ubuntu" },
+        { "cmd": "sudo apt upgrade", "desc": "Upgrade installed packages on Debian/Ubuntu" },
+        { "cmd": "sudo apt install <pkg>", "desc": "Install package on Debian/Ubuntu" },
+        { "cmd": "sudo apt remove <pkg>", "desc": "Remove package on Debian/Ubuntu" },
+        { "cmd": "sudo dnf install <pkg>", "desc": "Install package on Fedora/RHEL" },
+        { "cmd": "sudo yum install <pkg>", "desc": "Install package on older RHEL systems" },
+        { "cmd": "snap install <pkg>", "desc": "Install a snap package" },
+        { "cmd": "flatpak install <app>", "desc": "Install application via Flatpak" }
+      ]
+    },
+    {
+      "title": "MONITORING",
+      "commands": [
+        { "cmd": "top", "desc": "Interactive real-time process monitor" },
+        { "cmd": "htop", "desc": "Enhanced interactive process viewer" },
+        { "cmd": "df -h", "desc": "Show disk space usage by filesystem" },
+        { "cmd": "du -sh <dir>", "desc": "Show total size of a directory" },
+        { "cmd": "vmstat 1", "desc": "Report virtual memory statistics every second" },
+        { "cmd": "iostat -x 1", "desc": "Show extended disk I/O statistics" },
+        { "cmd": "dmesg | tail", "desc": "Show recent kernel ring buffer messages" },
+        { "cmd": "lsof -i :8080", "desc": "List processes using TCP port 8080" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "crontab -e", "desc": "Edit current user's cron schedule" },
+        { "cmd": "at now + 1 hour", "desc": "Schedule a one-time command" },
+        { "cmd": "tar -czvf archive.tar.gz <dir>", "desc": "Create compressed tar archive" },
+        { "cmd": "tar -xzvf archive.tar.gz", "desc": "Extract compressed tar archive" },
+        { "cmd": "rsync -avz src/ dest/", "desc": "Sync files efficiently over SSH or locally" },
+        { "cmd": "find /var/log -mtime -1", "desc": "Find files modified in last 24 hours" },
+        { "cmd": "sudo strace -p <pid>", "desc": "Trace system calls of a running process" },
+        { "cmd": "sudo tcpdump -i any port 443", "desc": "Capture network traffic on HTTPS port" }
+      ]
+    }
+  ]
+}

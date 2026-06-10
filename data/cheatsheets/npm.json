@@ -1,0 +1,79 @@
+{
+  "title": "npm Cheat Sheet",
+  "sections": [
+    {
+      "title": "PROJECT SETUP",
+      "commands": [
+        { "cmd": "npm init", "desc": "Create package.json interactively" },
+        { "cmd": "npm init -y", "desc": "Create package.json with default values" },
+        { "cmd": "npm install", "desc": "Install dependencies from package-lock.json" },
+        { "cmd": "npm ci", "desc": "Clean install from lockfile in CI environments" },
+        { "cmd": "npm pkg set name=my-app", "desc": "Set a field in package.json" },
+        { "cmd": "npm pkg get version", "desc": "Read a field from package.json" },
+        { "cmd": "npm doctor", "desc": "Check npm environment for common issues" }
+      ]
+    },
+    {
+      "title": "INSTALL & DEPENDENCIES",
+      "commands": [
+        { "cmd": "npm install <pkg>", "desc": "Install package and save to dependencies" },
+        { "cmd": "npm install -D <pkg>", "desc": "Install package as a dev dependency" },
+        { "cmd": "npm install -g <pkg>", "desc": "Install package globally" },
+        { "cmd": "npm uninstall <pkg>", "desc": "Remove a package from the project" },
+        { "cmd": "npm update", "desc": "Update packages within allowed semver ranges" },
+        { "cmd": "npm outdated", "desc": "List packages with newer versions available" },
+        { "cmd": "npm ls", "desc": "Show installed dependency tree" },
+        { "cmd": "npm dedupe", "desc": "Reduce duplicate packages in the tree" }
+      ]
+    },
+    {
+      "title": "SCRIPTS & EXECUTION",
+      "commands": [
+        { "cmd": "npm run <script>", "desc": "Run a script defined in package.json" },
+        { "cmd": "npm start", "desc": "Run the start script" },
+        { "cmd": "npm test", "desc": "Run the test script" },
+        { "cmd": "npm run build", "desc": "Run the build script" },
+        { "cmd": "npx <cmd>", "desc": "Execute a package binary without installing" },
+        { "cmd": "npm exec <pkg>", "desc": "Run a package binary from local or remote" },
+        { "cmd": "npm run <script> -- --flag", "desc": "Pass arguments through to a script" }
+      ]
+    },
+    {
+      "title": "PUBLISHING & REGISTRY",
+      "commands": [
+        { "cmd": "npm login", "desc": "Authenticate with the npm registry" },
+        { "cmd": "npm whoami", "desc": "Show logged-in npm username" },
+        { "cmd": "npm publish", "desc": "Publish package to the configured registry" },
+        { "cmd": "npm publish --access public", "desc": "Publish a scoped package publicly" },
+        { "cmd": "npm version patch", "desc": "Bump patch version and create git tag" },
+        { "cmd": "npm view <pkg>", "desc": "Show package metadata from registry" },
+        { "cmd": "npm dist-tag add <pkg>@1.0.0 latest", "desc": "Set a dist-tag on a published version" }
+      ]
+    },
+    {
+      "title": "MAINTENANCE",
+      "commands": [
+        { "cmd": "npm cache clean --force", "desc": "Clear the local npm cache" },
+        { "cmd": "npm audit", "desc": "Scan dependencies for known vulnerabilities" },
+        { "cmd": "npm audit fix", "desc": "Automatically fix compatible vulnerabilities" },
+        { "cmd": "npm fund", "desc": "List packages seeking funding" },
+        { "cmd": "npm shrinkwrap", "desc": "Generate npm-shrinkwrap.json lockfile" },
+        { "cmd": "npm rebuild", "desc": "Rebuild native addons for current platform" },
+        { "cmd": "npm root", "desc": "Print path to local node_modules folder" }
+      ]
+    },
+    {
+      "title": "ADVANCED",
+      "commands": [
+        { "cmd": "npm link", "desc": "Symlink package globally for local development" },
+        { "cmd": "npm link <pkg>", "desc": "Link a globally linked package locally" },
+        { "cmd": "npm pack", "desc": "Create a tarball from the package" },
+        { "cmd": "npm config list", "desc": "Show effective npm configuration" },
+        { "cmd": "npm config set registry <url>", "desc": "Point npm at a custom registry" },
+        { "cmd": "npm explain <pkg>", "desc": "Explain why a package is installed" },
+        { "cmd": "npm query \":root\"", "desc": "Query dependency graph with CSS-like selectors" },
+        { "cmd": "npm diff", "desc": "Diff package contents against a published version" }
+      ]
+    }
+  ]
+}

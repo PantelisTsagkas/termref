@@ -1,0 +1,219 @@
+{
+  "title": "Docker Cheat Sheet",
+  "sections": [
+    {
+      "title": "SETUP & INFO",
+      "commands": [
+        {
+          "cmd": "docker --version",
+          "desc": "Display installed Docker version"
+        },
+        {
+          "cmd": "docker info",
+          "desc": "Show system-wide Docker configuration and stats"
+        },
+        {
+          "cmd": "docker help",
+          "desc": "List all available Docker commands"
+        },
+        {
+          "cmd": "docker login",
+          "desc": "Log in to Docker Hub or a registry"
+        },
+        {
+          "cmd": "docker logout",
+          "desc": "Log out from a Docker registry"
+        },
+        {
+          "cmd": "systemctl start docker",
+          "desc": "Start the Docker daemon service"
+        },
+        {
+          "cmd": "systemctl enable docker",
+          "desc": "Enable Docker to start on boot"
+        }
+      ]
+    },
+    {
+      "title": "IMAGE MANAGEMENT",
+      "commands": [
+        {
+          "cmd": "docker images",
+          "desc": "List all locally available images"
+        },
+        {
+          "cmd": "docker pull <image>:<tag>",
+          "desc": "Download an image from a registry"
+        },
+        {
+          "cmd": "docker build -t <name>:<tag> .",
+          "desc": "Build an image from a Dockerfile"
+        },
+        {
+          "cmd": "docker push <image>:<tag>",
+          "desc": "Push an image to a registry"
+        },
+        {
+          "cmd": "docker rmi <image>",
+          "desc": "Remove a local image"
+        },
+        {
+          "cmd": "docker tag <image> <new_name>:<tag>",
+          "desc": "Tag an image with a new name"
+        },
+        {
+          "cmd": "docker image prune -a",
+          "desc": "Remove all unused images"
+        },
+        {
+          "cmd": "docker history <image>",
+          "desc": "Show layer history of an image"
+        }
+      ]
+    },
+    {
+      "title": "CONTAINER LIFECYCLE",
+      "commands": [
+        {
+          "cmd": "docker run -d -p 8080:80 --name <name> <image>",
+          "desc": "Run a detached container with port mapping"
+        },
+        {
+          "cmd": "docker run -it <image> /bin/bash",
+          "desc": "Run a container interactively with bash"
+        },
+        {
+          "cmd": "docker ps",
+          "desc": "List all running containers"
+        },
+        {
+          "cmd": "docker ps -a",
+          "desc": "List all containers including stopped ones"
+        },
+        {
+          "cmd": "docker stop <container>",
+          "desc": "Gracefully stop a running container"
+        },
+        {
+          "cmd": "docker start <container>",
+          "desc": "Start a stopped container"
+        },
+        {
+          "cmd": "docker restart <container>",
+          "desc": "Restart a running or stopped container"
+        },
+        {
+          "cmd": "docker rm <container>",
+          "desc": "Remove a stopped container"
+        }
+      ]
+    },
+    {
+      "title": "CONTAINER INSPECTION & LOGS",
+      "commands": [
+        {
+          "cmd": "docker logs <container>",
+          "desc": "View output logs of a container"
+        },
+        {
+          "cmd": "docker logs -f <container>",
+          "desc": "Stream live logs from a container"
+        },
+        {
+          "cmd": "docker inspect <container>",
+          "desc": "Show detailed container configuration JSON"
+        },
+        {
+          "cmd": "docker exec -it <container> /bin/bash",
+          "desc": "Open a shell inside a running container"
+        },
+        {
+          "cmd": "docker stats",
+          "desc": "Display live resource usage of containers"
+        },
+        {
+          "cmd": "docker top <container>",
+          "desc": "Show running processes inside a container"
+        },
+        {
+          "cmd": "docker diff <container>",
+          "desc": "Show filesystem changes in a container"
+        }
+      ]
+    },
+    {
+      "title": "VOLUMES & NETWORKING",
+      "commands": [
+        {
+          "cmd": "docker volume create <name>",
+          "desc": "Create a named volume"
+        },
+        {
+          "cmd": "docker volume ls",
+          "desc": "List all Docker volumes"
+        },
+        {
+          "cmd": "docker volume rm <name>",
+          "desc": "Remove a named volume"
+        },
+        {
+          "cmd": "docker run -v <vol>:/path <image>",
+          "desc": "Mount a volume into a container"
+        },
+        {
+          "cmd": "docker network create <name>",
+          "desc": "Create a custom Docker network"
+        },
+        {
+          "cmd": "docker network ls",
+          "desc": "List all Docker networks"
+        },
+        {
+          "cmd": "docker network connect <net> <container>",
+          "desc": "Connect a container to a network"
+        },
+        {
+          "cmd": "docker network inspect <name>",
+          "desc": "Show details of a Docker network"
+        }
+      ]
+    },
+    {
+      "title": "DOCKER COMPOSE",
+      "commands": [
+        {
+          "cmd": "docker compose up -d",
+          "desc": "Start all services in detached mode"
+        },
+        {
+          "cmd": "docker compose down",
+          "desc": "Stop and remove all compose services"
+        },
+        {
+          "cmd": "docker compose build",
+          "desc": "Build or rebuild compose service images"
+        },
+        {
+          "cmd": "docker compose logs -f",
+          "desc": "Stream logs from all compose services"
+        },
+        {
+          "cmd": "docker compose ps",
+          "desc": "List status of compose services"
+        },
+        {
+          "cmd": "docker compose exec <svc> bash",
+          "desc": "Open a shell in a compose service"
+        },
+        {
+          "cmd": "docker compose pull",
+          "desc": "Pull latest images for all services"
+        },
+        {
+          "cmd": "docker compose restart <svc>",
+          "desc": "Restart a specific compose service"
+        }
+      ]
+    }
+  ]
+}
