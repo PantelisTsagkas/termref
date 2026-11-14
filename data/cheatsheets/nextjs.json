@@ -8,9 +8,9 @@
         { "cmd": "npm run dev", "desc": "Start local development server" },
         { "cmd": "npm run build", "desc": "Create an optimized production build" },
         { "cmd": "npm run start", "desc": "Start production server after build" },
-        { "cmd": "npm run lint", "desc": "Run ESLint across the project" },
+        { "cmd": "npx eslint .", "desc": "Lint with the ESLint CLI (next lint was removed in 16)" },
         { "cmd": "npx next info", "desc": "Print Next.js and system environment info" },
-        { "cmd": "npx next telemetry disable", "desc": "Disable anonymous Next.js telemetry" }
+        { "cmd": "npx @next/codemod@canary next-lint-to-eslint-cli .", "desc": "Migrate next lint scripts to the ESLint CLI" }
       ]
     },
     {
@@ -23,7 +23,7 @@
         { "cmd": "app/not-found.tsx", "desc": "Custom UI for not-found responses" },
         { "cmd": "app/api/route.ts", "desc": "Route Handler for HTTP API endpoints" },
         { "cmd": "app/[slug]/page.tsx", "desc": "Dynamic route segment page" },
-        { "cmd": "middleware.ts", "desc": "Run code before a request is completed" }
+        { "cmd": "proxy.ts", "desc": "Run code before a request completes (formerly middleware.ts)" }
       ]
     },
     {
@@ -34,8 +34,8 @@
         { "cmd": "fetch(url, { cache: 'no-store' })", "desc": "Fetch fresh data on every request" },
         { "cmd": "await cookies()", "desc": "Read request cookies in Server Component" },
         { "cmd": "await headers()", "desc": "Read request headers in Server Component" },
-        { "cmd": "export const dynamic = 'force-dynamic'", "desc": "Opt route segment into dynamic rendering" },
-        { "cmd": "export const revalidate = 3600", "desc": "Set default revalidation interval in seconds" }
+        { "cmd": "export const dynamic = 'force-dynamic'", "desc": "Opt a segment into dynamic rendering (not with Cache Components)" },
+        { "cmd": "export const revalidate = 3600", "desc": "Set segment revalidation in seconds (not with Cache Components)" }
       ]
     },
     {
@@ -43,10 +43,10 @@
       "commands": [
         { "cmd": "'use server'", "desc": "Mark function or file as Server Action" },
         { "cmd": "revalidatePath('/posts')", "desc": "Invalidate cached data for a route path" },
-        { "cmd": "revalidateTag('posts')", "desc": "Invalidate cached data by tag" },
+        { "cmd": "revalidateTag('posts', 'max')", "desc": "Mark tagged data stale; second argument is the cache profile" },
         { "cmd": "redirect('/login')", "desc": "Redirect user from server-side code" },
         { "cmd": "notFound()", "desc": "Trigger a not-found response from server code" },
-        { "cmd": "unstable_cache(fn, keys, opts)", "desc": "Cache expensive server function results" },
+        { "cmd": "'use cache'", "desc": "Cache a function or component's output (Cache Components)" },
         { "cmd": "cacheTag('products')", "desc": "Associate cached output with a tag" }
       ]
     },

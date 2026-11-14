@@ -1,0 +1,75 @@
+{
+  "title": "uv Cheat Sheet",
+  "sections": [
+    {
+      "title": "INSTALL & PYTHON VERSIONS",
+      "commands": [
+        { "cmd": "curl -LsSf https://astral.sh/uv/install.sh | sh", "desc": "Install uv on macOS or Linux" },
+        { "cmd": "brew install uv", "desc": "Install uv with Homebrew" },
+        { "cmd": "uv self update", "desc": "Update a standalone uv install to the latest release" },
+        { "cmd": "uv python list", "desc": "List installed and downloadable Python versions" },
+        { "cmd": "uv python install 3.13", "desc": "Download and install a Python version" },
+        { "cmd": "uv python pin 3.13", "desc": "Write the version to .python-version for this directory" },
+        { "cmd": "uv venv", "desc": "Create a .venv in the current directory" }
+      ]
+    },
+    {
+      "title": "PROJECTS & DEPENDENCIES",
+      "commands": [
+        { "cmd": "uv init myproject", "desc": "Create a new project with pyproject.toml" },
+        { "cmd": "uv init --lib mylib", "desc": "Create a new installable library project" },
+        { "cmd": "uv add <pkg>", "desc": "Add a dependency and update uv.lock" },
+        { "cmd": "uv add --dev pytest", "desc": "Add a dependency to the dev group" },
+        { "cmd": "uv add --group lint ruff", "desc": "Add a dependency to a named group" },
+        { "cmd": "uv remove <pkg>", "desc": "Remove a dependency from the project" },
+        { "cmd": "uv tree", "desc": "Show the resolved dependency tree" }
+      ]
+    },
+    {
+      "title": "LOCK & SYNC",
+      "commands": [
+        { "cmd": "uv lock", "desc": "Resolve dependencies and write uv.lock" },
+        { "cmd": "uv lock --upgrade", "desc": "Upgrade every locked package to the latest allowed version" },
+        { "cmd": "uv lock --upgrade-package <pkg>", "desc": "Upgrade one package and keep the rest of the lock" },
+        { "cmd": "uv sync", "desc": "Install the locked environment into .venv" },
+        { "cmd": "uv sync --locked", "desc": "Sync, failing if uv.lock is out of date (good for CI)" },
+        { "cmd": "uv sync --frozen", "desc": "Sync from uv.lock without checking it against pyproject" },
+        { "cmd": "uv sync --no-dev", "desc": "Sync without the dev dependency group" }
+      ]
+    },
+    {
+      "title": "RUNNING CODE",
+      "commands": [
+        { "cmd": "uv run python", "desc": "Start a REPL inside the project environment" },
+        { "cmd": "uv run pytest", "desc": "Run a command in the synced project environment" },
+        { "cmd": "uv run script.py", "desc": "Run a script with the project or inline dependencies" },
+        { "cmd": "uv run --with rich script.py", "desc": "Run with an extra package for this invocation only" },
+        { "cmd": "uv add --script script.py requests", "desc": "Declare inline dependencies inside a single-file script" },
+        { "cmd": "uv run --python 3.12 script.py", "desc": "Run with a specific Python version" }
+      ]
+    },
+    {
+      "title": "TOOLS",
+      "commands": [
+        { "cmd": "uvx ruff check .", "desc": "Run a CLI tool in a temporary isolated environment" },
+        { "cmd": "uvx <tool>@latest", "desc": "Run the latest release of a tool" },
+        { "cmd": "uv tool install ruff", "desc": "Install a CLI tool globally on PATH" },
+        { "cmd": "uv tool list", "desc": "List installed tools" },
+        { "cmd": "uv tool upgrade --all", "desc": "Upgrade every installed tool" },
+        { "cmd": "uv tool uninstall ruff", "desc": "Remove an installed tool" }
+      ]
+    },
+    {
+      "title": "PIP INTERFACE, BUILD & PUBLISH",
+      "commands": [
+        { "cmd": "uv pip install -r requirements.txt", "desc": "Install from a requirements file into the active venv" },
+        { "cmd": "uv pip compile requirements.in -o requirements.txt", "desc": "Pin loose requirements to exact versions" },
+        { "cmd": "uv pip sync requirements.txt", "desc": "Make the venv match the file exactly" },
+        { "cmd": "uv export --format requirements.txt --output-file requirements.txt", "desc": "Export uv.lock as a pip-compatible file" },
+        { "cmd": "uv build", "desc": "Build sdist and wheel into dist/" },
+        { "cmd": "uv publish", "desc": "Upload built distributions to PyPI" },
+        { "cmd": "uv cache clean", "desc": "Clear the uv cache" }
+      ]
+    }
+  ]
+}

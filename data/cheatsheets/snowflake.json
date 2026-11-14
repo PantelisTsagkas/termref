@@ -1,78 +1,79 @@
 {
-  "title": "SnowSQL Cheat Sheet",
+  "title": "Snowflake Cheat Sheet",
   "sections": [
     {
-      "title": "CONNECTION",
+      "title": "SNOWFLAKE CLI",
       "commands": [
-        { "cmd": "snowsql -a <account> -u <user>", "desc": "Connect to Snowflake account" },
-        { "cmd": "snowsql -c myconnection", "desc": "Connect using a named config entry" },
-        { "cmd": "snowsql -a <account> -u <user> -d <db> -s <schema>", "desc": "Connect with database and schema set" },
-        { "cmd": "!help", "desc": "Show SnowSQL built-in help commands" },
-        { "cmd": "!quit", "desc": "Exit the SnowSQL session" },
-        { "cmd": "!set output_format=table", "desc": "Set query result output format" },
-        { "cmd": "!set timing=true", "desc": "Show execution time after each query" }
+        { "cmd": "snow connection add", "desc": "Add a named connection to config.toml interactively" },
+        { "cmd": "snow connection list", "desc": "List configured connections" },
+        { "cmd": "snow connection test -c <name>", "desc": "Check that a connection works" },
+        { "cmd": "snow sql -q \"SELECT CURRENT_VERSION()\"", "desc": "Run an ad-hoc query" },
+        { "cmd": "snow sql -f script.sql", "desc": "Run the statements in a SQL file" },
+        { "cmd": "snow object list table --in database <db>", "desc": "List objects of a type in a scope" },
+        { "cmd": "snow stage copy data.csv @my_stage", "desc": "Upload a local file to a stage" },
+        { "cmd": "snow sql -q \"SHOW TABLES\" --format JSON", "desc": "Get query results as JSON" }
       ]
     },
     {
       "title": "SESSION CONTEXT",
       "commands": [
         { "cmd": "USE ROLE analyst;", "desc": "Switch to a different role" },
-        { "cmd": "USE WAREHOUSE compute_wh;", "desc": "Select active compute warehouse" },
-        { "cmd": "USE DATABASE prod;", "desc": "Set current database context" },
-        { "cmd": "USE SCHEMA public;", "desc": "Set current schema context" },
+        { "cmd": "USE WAREHOUSE compute_wh;", "desc": "Select the active compute warehouse" },
+        { "cmd": "USE DATABASE prod;", "desc": "Set the current database" },
+        { "cmd": "USE SCHEMA public;", "desc": "Set the current schema" },
         { "cmd": "SELECT CURRENT_USER(), CURRENT_ROLE();", "desc": "Show current user and role" },
         { "cmd": "SELECT CURRENT_DATABASE(), CURRENT_SCHEMA();", "desc": "Show current database and schema" },
-        { "cmd": "ALTER SESSION SET TIMEZONE = 'UTC';", "desc": "Set session timezone to UTC" }
-      ]
-    },
-    {
-      "title": "QUERYING",
-      "commands": [
-        { "cmd": "SHOW TABLES;", "desc": "List tables in current schema" },
-        { "cmd": "SHOW VIEWS;", "desc": "List views in current schema" },
-        { "cmd": "DESCRIBE TABLE events;", "desc": "Show column metadata for a table" },
-        { "cmd": "SELECT * FROM events LIMIT 100;", "desc": "Preview first 100 rows of a table" },
-        { "cmd": "SHOW WAREHOUSES;", "desc": "List warehouses available to current role" },
-        { "cmd": "SHOW GRANTS TO ROLE analyst;", "desc": "Show grants assigned to a role" },
-        { "cmd": "SHOW ROLES;", "desc": "List roles visible to current user" },
-        { "cmd": "EXPLAIN SELECT * FROM events;", "desc": "Show query execution plan" }
-      ]
-    },
-    {
-      "title": "LOADING & FILES",
-      "commands": [
-        { "cmd": "PUT file://data.csv @%mytable;", "desc": "Upload local file to table stage" },
-        { "cmd": "COPY INTO mytable FROM @%mytable;", "desc": "Load staged file into target table" },
-        { "cmd": "COPY INTO mytable FILE_FORMAT=(TYPE=CSV);", "desc": "Load CSV with explicit file format" },
-        { "cmd": "LIST @%mytable;", "desc": "List files in a table stage" },
-        { "cmd": "REMOVE @%mytable;", "desc": "Remove staged files from table stage" },
-        { "cmd": "GET @%mytable file:///tmp/;", "desc": "Download staged files to local path" },
-        { "cmd": "CREATE STAGE mystage;", "desc": "Create a named internal stage" }
-      ]
-    },
-    {
-      "title": "SESSION CONTROL",
-      "commands": [
-        { "cmd": "ALTER WAREHOUSE wh SET WAREHOUSE_SIZE=XSMALL;", "desc": "Resize warehouse compute capacity" },
-        { "cmd": "ALTER WAREHOUSE wh SUSPEND;", "desc": "Suspend warehouse to stop billing" },
-        { "cmd": "ALTER WAREHOUSE wh RESUME;", "desc": "Resume a suspended warehouse" },
-        { "cmd": "BEGIN;", "desc": "Start an explicit SQL transaction" },
-        { "cmd": "COMMIT;", "desc": "Commit current transaction changes" },
-        { "cmd": "ROLLBACK;", "desc": "Roll back current transaction changes" },
         { "cmd": "ALTER SESSION SET QUERY_TAG = 'etl';", "desc": "Tag queries for monitoring and cost tracking" }
+      ]
+    },
+    {
+      "title": "QUERYING & INSPECTING",
+      "commands": [
+        { "cmd": "SHOW TABLES;", "desc": "List tables in the current schema" },
+        { "cmd": "DESCRIBE TABLE events;", "desc": "Show column metadata for a table" },
+        { "cmd": "SELECT * FROM events LIMIT 100;", "desc": "Preview the first 100 rows" },
+        { "cmd": "SELECT GET_DDL('TABLE', 'events');", "desc": "Show the CREATE statement for an object" },
+        { "cmd": "SHOW GRANTS TO ROLE analyst;", "desc": "Show privileges granted to a role" },
+        { "cmd": "EXPLAIN SELECT * FROM events;", "desc": "Show the query execution plan" },
+        { "cmd": "SELECT * FROM events AT(OFFSET => -3600);", "desc": "Time Travel: query the table as of one hour ago" },
+        { "cmd": "UNDROP TABLE events;", "desc": "Restore a dropped table within the retention period" }
+      ]
+    },
+    {
+      "title": "LOADING & STAGES",
+      "commands": [
+        { "cmd": "CREATE STAGE my_stage;", "desc": "Create a named internal stage" },
+        { "cmd": "PUT file://data.csv @my_stage;", "desc": "Upload a local file to a stage (from a client)" },
+        { "cmd": "LIST @my_stage;", "desc": "List files in a stage" },
+        { "cmd": "COPY INTO events FROM @my_stage FILE_FORMAT = (TYPE = CSV SKIP_HEADER = 1);", "desc": "Load staged CSV files into a table" },
+        { "cmd": "COPY INTO @my_stage/export/ FROM events;", "desc": "Unload a table to files in a stage" },
+        { "cmd": "SELECT * FROM TABLE(VALIDATE(events, JOB_ID => '_last'));", "desc": "Show rows rejected by the last COPY" },
+        { "cmd": "REMOVE @my_stage;", "desc": "Delete files from a stage" }
+      ]
+    },
+    {
+      "title": "WAREHOUSES & TRANSACTIONS",
+      "commands": [
+        { "cmd": "SHOW WAREHOUSES;", "desc": "List warehouses visible to the current role" },
+        { "cmd": "ALTER WAREHOUSE wh SET WAREHOUSE_SIZE = XSMALL;", "desc": "Resize a warehouse" },
+        { "cmd": "ALTER WAREHOUSE wh SET AUTO_SUSPEND = 60;", "desc": "Suspend after 60 idle seconds to save credits" },
+        { "cmd": "ALTER WAREHOUSE wh SUSPEND;", "desc": "Suspend a warehouse now" },
+        { "cmd": "ALTER WAREHOUSE wh RESUME;", "desc": "Resume a suspended warehouse" },
+        { "cmd": "BEGIN;", "desc": "Start an explicit transaction" },
+        { "cmd": "COMMIT;", "desc": "Commit the current transaction" },
+        { "cmd": "ROLLBACK;", "desc": "Roll back the current transaction" }
       ]
     },
     {
       "title": "ADVANCED",
       "commands": [
-        { "cmd": "CREATE TABLE t (id INT, name VARCHAR);", "desc": "Create a new table in current schema" },
-        { "cmd": "CREATE OR REPLACE VIEW v AS SELECT * FROM t;", "desc": "Create or replace a view definition" },
-        { "cmd": "GRANT SELECT ON TABLE t TO ROLE analyst;", "desc": "Grant read access on a table to role" },
-        { "cmd": "CREATE USER new_user PASSWORD='secret';", "desc": "Create a new Snowflake user" },
-        { "cmd": "SHOW PARAMETERS LIKE 'TIMEZONE';", "desc": "Show account or session parameter values" },
+        { "cmd": "CREATE OR REPLACE TABLE events_dev CLONE events;", "desc": "Zero-copy clone a table" },
+        { "cmd": "CREATE OR REPLACE VIEW v AS SELECT * FROM t;", "desc": "Create or replace a view" },
+        { "cmd": "GRANT SELECT ON ALL TABLES IN SCHEMA s TO ROLE analyst;", "desc": "Grant read on every table in a schema" },
         { "cmd": "SELECT SYSTEM$CLUSTERING_INFORMATION('t');", "desc": "Check clustering quality for a table" },
-        { "cmd": "CALL my_procedure();", "desc": "Execute a stored procedure" },
-        { "cmd": "SELECT * FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY());", "desc": "Query recent SQL execution history" }
+        { "cmd": "SELECT * FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY());", "desc": "Recent query history for the current user" },
+        { "cmd": "SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY;", "desc": "Credit usage per warehouse (needs ACCOUNT_USAGE access)" },
+        { "cmd": "CALL my_procedure();", "desc": "Execute a stored procedure" }
       ]
     }
   ]

@@ -24,7 +24,7 @@
         { "cmd": "G", "desc": "Go to last line of file" },
         { "cmd": "0 / $", "desc": "Jump to start or end of line" },
         { "cmd": "Ctrl+d / Ctrl+u", "desc": "Scroll half page down or up" },
-        { "cmd": ":%", "desc": "Jump to matching bracket or brace" }
+        { "cmd": "%", "desc": "Jump to matching bracket or brace" }
       ]
     },
     {
@@ -48,7 +48,7 @@
         { "cmd": "n / N", "desc": "Go to next or previous match" },
         { "cmd": ":%s/old/new/g", "desc": "Replace all occurrences in file" },
         { "cmd": ":%s/old/new/gc", "desc": "Replace all with confirmation prompts" },
-        { "cmd": ":*s/old/new/g", "desc": "Replace within the visual selection" },
+        { "cmd": ":'<,'>s/old/new/g", "desc": "Replace within the visual selection" },
         { "cmd": ":set ignorecase", "desc": "Make searches case-insensitive" },
         { "cmd": ":noh", "desc": "Clear search highlight until next search" }
       ]

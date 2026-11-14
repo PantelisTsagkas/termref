@@ -9,7 +9,7 @@
         { "cmd": "dbt deps", "desc": "Install packages from packages.yml" },
         { "cmd": "dbt clean", "desc": "Remove target and dbt_packages directories" },
         { "cmd": "dbt parse", "desc": "Parse project files without executing models" },
-        { "cmd": "dbt environment show", "desc": "Show active dbt environment details" },
+        { "cmd": "dbt ls --select state:modified --state path/to/artifacts", "desc": "List models changed versus a previous manifest" },
         { "cmd": "dbt --version", "desc": "Display installed dbt version" }
       ]
     },
@@ -30,7 +30,7 @@
       "commands": [
         { "cmd": "dbt test", "desc": "Run all data and schema tests" },
         { "cmd": "dbt test --select model_name", "desc": "Run tests for a specific model" },
-        { "cmd": "dbt test --select source:*", "desc": "Run all source freshness and tests" },
+        { "cmd": "dbt test --select \"source:*\"", "desc": "Run tests defined on all sources" },
         { "cmd": "dbt test --store-failures", "desc": "Persist failing test rows to tables" },
         { "cmd": "dbt source freshness", "desc": "Check source data freshness thresholds" },
         { "cmd": "dbt test --select test_type:unit", "desc": "Run unit tests only" },
@@ -69,7 +69,7 @@
         { "cmd": "dbt retry --select model_name", "desc": "Retry a specific failed node" },
         { "cmd": "dbt compile --inline \"select 1\"", "desc": "Compile ad hoc inline SQL" },
         { "cmd": "dbt run --empty", "desc": "Build models using empty source inputs" },
-        { "cmd": "dbt source snapshot-freshness", "desc": "Generate source freshness snapshot artifact" },
+        { "cmd": "dbt source freshness --select \"source:raw\"", "desc": "Check freshness for one source only" },
         { "cmd": "dbt list --select +model_name", "desc": "Select model and all upstream parents" },
         { "cmd": "dbt list --select model_name+", "desc": "Select model and all downstream children" }
       ]
