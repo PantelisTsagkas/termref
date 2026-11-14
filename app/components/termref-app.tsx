@@ -1,17 +1,21 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { sheetToText, type CheatSheet } from "@/lib/cheat-sheet";
+import { useState } from "react";
+import {
+  countCommands,
+  sheetToMarkdown,
+  sheetToText,
+  type CheatSheet,
+} from "@/lib/cheat-sheet";
 import { getCheatSheet } from "@/lib/cheatsheets";
 import { CATEGORIES, TECHNOLOGIES } from "@/lib/technologies";
+import pkg from "@/package.json";
 
 export default function TermrefApp() {
   const [activeCat, setActiveCat] = useState("All");
   const [selected, setSelected] = useState<string | null>(null);
   const [sheet, setSheet] = useState<CheatSheet | null>(null);
   const [error, setError] = useState("");
-  const [rawText, setRawText] = useState("");
-  const outputRef = useRef<HTMLDivElement>(null);
 
   const filteredTech =
     activeCat === "All"
@@ -22,7 +26,6 @@ export default function TermrefApp() {
     if (!selected) return;
     setError("");
     setSheet(null);
-    setRawText("");
 
     const sheet = getCheatSheet(selected);
     if (!sheet?.title) {
@@ -31,44 +34,22 @@ export default function TermrefApp() {
     }
 
     setSheet(sheet);
-    setRawText(sheetToText(sheet));
   }
 
-  function downloadTxt() {
-    if (!rawText) return;
-    const blob = new Blob([rawText], { type: "text/plain" });
+  function download(content: string, ext: string, type: string) {
+    const blob = new Blob([content], { type });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${selected}-cheatsheet.txt`;
+    a.download = `${selected}-cheatsheet.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
   }
 
   function reset() {
     setSheet(null);
-    setRawText("");
     setError("");
     setSelected(null);
-  }
-
-  function downloadMd() {
-    if (!sheet) return;
-    let md = `# ${sheet.title}\n\n`;
-    for (const sec of sheet.sections || []) {
-      md += `## ${sec.title}\n\n| Command | Description |\n|---------|-------------|\n`;
-      for (const c of sec.commands || []) {
-        md += `| \`${c.cmd}\` | ${c.desc} |\n`;
-      }
-      md += "\n";
-    }
-    const blob = new Blob([md], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${selected}-cheatsheet.md`;
-    a.click();
-    URL.revokeObjectURL(url);
   }
 
   return (
@@ -79,12 +60,12 @@ export default function TermrefApp() {
           <h1>TERMREF</h1>
           <p>CURATED TERMINAL CHEAT SHEET REFERENCE</p>
         </div>
-        <div className="badge">15 TECHNOLOGIES</div>
+        <div className="badge">{TECHNOLOGIES.length} TECHNOLOGIES</div>
       </header>
 
       <div className="main">
         <aside className="left-panel">
-          <div className="panel-label">// select technology</div>
+          <div className="panel-label">{"// select technology"}</div>
           <div className="cat-row">
             {CATEGORIES.map((c) => (
               <button
@@ -141,7 +122,7 @@ export default function TermrefApp() {
                 {sheet
                   ? sheet.title
                   : selected
-                    ? `ready — ${TECHNOLOGIES.find((t) => t.id === selected)?.label}`
+                    ? `ready: ${TECHNOLOGIES.find((t) => t.id === selected)?.label}`
                     : "no file open"}
               </span>
               {(sheet || error) && (
@@ -153,7 +134,7 @@ export default function TermrefApp() {
                 type="button"
                 className="dl-btn"
                 disabled={!sheet}
-                onClick={downloadTxt}
+                onClick={() => sheet && download(sheetToText(sheet), "txt", "text/plain")}
               >
                 ↓ .TXT
               </button>
@@ -161,13 +142,15 @@ export default function TermrefApp() {
                 type="button"
                 className="dl-btn"
                 disabled={!sheet}
-                onClick={downloadMd}
+                onClick={() =>
+                  sheet && download(sheetToMarkdown(sheet), "md", "text/markdown")
+                }
               >
                 ↓ .MD
               </button>
             </div>
 
-            <div className="output-scroll" ref={outputRef}>
+            <div className="output-scroll">
               {!sheet && !error && (
                 <div className="empty-state">
                   <div className="empty-ascii">{"{ }"}</div>
@@ -185,19 +168,16 @@ export default function TermrefApp() {
                   <div className="sheet-header">
                     <div className="sheet-title">{sheet.title}</div>
                     <div className="sheet-subtitle">
-                      {sheet.sections?.reduce(
-                        (a, s) => a + (s.commands?.length || 0),
-                        0,
-                      )}{" "}
-                      COMMANDS · {sheet.sections?.length} SECTIONS
+                      {countCommands(sheet)} COMMANDS · {sheet.sections.length}{" "}
+                      SECTIONS
                     </div>
                   </div>
 
-                  {sheet.sections?.map((sec, si) => (
+                  {sheet.sections.map((sec, si) => (
                     <div className="section" key={si}>
                       <div className="section-title">{sec.title}</div>
                       <div className="cmd-list">
-                        {sec.commands?.map((cmd, ci) => (
+                        {sec.commands.map((cmd, ci) => (
                           <div className="cmd-row" key={ci}>
                             <div className="cmd-code">{cmd.cmd}</div>
                             <div className="cmd-desc">{cmd.desc}</div>
@@ -214,7 +194,7 @@ export default function TermrefApp() {
       </div>
 
       <footer className="footer">
-        <span>TERMREF v1.0 · CURATED CONTENT — VERIFY BEFORE USE</span>
+        <span>TERMREF v{pkg.version} · CURATED CONTENT · VERIFY BEFORE USE</span>
         <span>
           {sheet
             ? `loaded: ${new Date().toLocaleTimeString()}`
