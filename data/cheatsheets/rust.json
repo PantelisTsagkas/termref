@@ -22,7 +22,7 @@
         { "cmd": "cargo run --bin <name>", "desc": "Run a specific binary target" },
         { "cmd": "cargo check", "desc": "Type-check without producing binaries" },
         { "cmd": "rustc main.rs", "desc": "Compile a single file without Cargo" },
-        { "cmd": "cargo watch -x run", "desc": "Rebuild and rerun on file changes" }
+        { "cmd": "bacon", "desc": "Background checker that reruns on file changes (cargo install bacon)" }
       ]
     },
     {
@@ -67,9 +67,9 @@
         { "cmd": "cargo publish", "desc": "Publish crate to crates.io registry" },
         { "cmd": "cargo package", "desc": "Create distributable crate tarball" },
         { "cmd": "cargo install <crate>", "desc": "Install binary crate globally" },
-        { "cmd": "cargo build -Z build-std", "desc": "Build standard library from source" },
-        { "cmd": "cargo llvm-cov", "desc": "Generate code coverage report" },
-        { "cmd": "cargo expand", "desc": "Expand macros for debugging generated code" },
+        { "cmd": "cargo +nightly build -Z build-std", "desc": "Build the standard library from source (nightly only)" },
+        { "cmd": "cargo llvm-cov", "desc": "Generate a code coverage report (cargo install cargo-llvm-cov)" },
+        { "cmd": "cargo expand", "desc": "Expand macros to debug generated code (cargo install cargo-expand)" },
         { "cmd": "cross build --target aarch64-unknown-linux-gnu", "desc": "Cross-compile for another architecture" },
         { "cmd": "RUST_BACKTRACE=1 cargo run", "desc": "Run with full panic backtrace enabled" }
       ]

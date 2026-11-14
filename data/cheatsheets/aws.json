@@ -4,211 +4,73 @@
     {
       "title": "SETUP & CONFIGURATION",
       "commands": [
-        {
-          "cmd": "aws configure",
-          "desc": "Set up AWS credentials, region, and output format"
-        },
-        {
-          "cmd": "aws configure --profile myprofile",
-          "desc": "Configure a named profile for multi-account use"
-        },
-        {
-          "cmd": "aws configure list",
-          "desc": "List current configuration values and sources"
-        },
-        {
-          "cmd": "aws configure list-profiles",
-          "desc": "Show all configured named profiles"
-        },
-        {
-          "cmd": "aws sts get-caller-identity",
-          "desc": "Show current authenticated AWS account and user"
-        },
-        {
-          "cmd": "aws configure set region us-east-1",
-          "desc": "Set default region without re-running configure"
-        },
-        {
-          "cmd": "export AWS_PROFILE=myprofile",
-          "desc": "Switch active profile via environment variable"
-        }
+        { "cmd": "aws configure", "desc": "Set up access keys, region and output format" },
+        { "cmd": "aws configure sso", "desc": "Set up a profile that signs in with IAM Identity Center" },
+        { "cmd": "aws sso login --profile myprofile", "desc": "Refresh SSO credentials for a profile" },
+        { "cmd": "aws configure list-profiles", "desc": "Show all configured named profiles" },
+        { "cmd": "aws configure list", "desc": "Show current configuration values and where they come from" },
+        { "cmd": "aws sts get-caller-identity", "desc": "Show the account and identity you are using" },
+        { "cmd": "export AWS_PROFILE=myprofile", "desc": "Switch the active profile for this shell" }
       ]
     },
     {
-      "title": "S3 OPERATIONS",
+      "title": "S3",
       "commands": [
-        {
-          "cmd": "aws s3 ls",
-          "desc": "List all S3 buckets in the account"
-        },
-        {
-          "cmd": "aws s3 ls s3://my-bucket/",
-          "desc": "List objects inside a specific bucket"
-        },
-        {
-          "cmd": "aws s3 cp file.txt s3://my-bucket/",
-          "desc": "Upload a local file to S3 bucket"
-        },
-        {
-          "cmd": "aws s3 cp s3://my-bucket/file.txt .",
-          "desc": "Download a file from S3 to current directory"
-        },
-        {
-          "cmd": "aws s3 sync ./local-dir s3://my-bucket/",
-          "desc": "Sync local directory to S3 bucket"
-        },
-        {
-          "cmd": "aws s3 rm s3://my-bucket/file.txt",
-          "desc": "Delete a specific object from S3"
-        },
-        {
-          "cmd": "aws s3 mb s3://new-bucket-name",
-          "desc": "Create a new S3 bucket"
-        },
-        {
-          "cmd": "aws s3 rb s3://my-bucket --force",
-          "desc": "Remove a bucket and all its contents"
-        }
+        { "cmd": "aws s3 ls", "desc": "List buckets in the account" },
+        { "cmd": "aws s3 ls s3://my-bucket/prefix/ --recursive --human-readable", "desc": "List objects under a prefix with sizes" },
+        { "cmd": "aws s3 cp file.txt s3://my-bucket/", "desc": "Upload a local file" },
+        { "cmd": "aws s3 cp s3://my-bucket/file.txt .", "desc": "Download a file to the current directory" },
+        { "cmd": "aws s3 sync ./local-dir s3://my-bucket/ --delete", "desc": "Mirror a directory to S3, deleting removed files" },
+        { "cmd": "aws s3 rm s3://my-bucket/prefix/ --recursive", "desc": "Delete every object under a prefix" },
+        { "cmd": "aws s3 mb s3://new-bucket-name", "desc": "Create a bucket" },
+        { "cmd": "aws s3 presign s3://my-bucket/file.txt --expires-in 3600", "desc": "Generate a temporary download URL" }
       ]
     },
     {
-      "title": "EC2 INSTANCES",
+      "title": "EC2",
       "commands": [
-        {
-          "cmd": "aws ec2 describe-instances",
-          "desc": "List all EC2 instances with full details"
-        },
-        {
-          "cmd": "aws ec2 describe-instances --filters",
-          "desc": "Name=instance-state-name,Values=runningList only running EC2 instances"
-        },
-        {
-          "cmd": "aws ec2 start-instances --instance-ids i-0abcd1234",
-          "desc": "Start a stopped EC2 instance by ID"
-        },
-        {
-          "cmd": "aws ec2 stop-instances --instance-ids i-0abcd1234",
-          "desc": "Stop a running EC2 instance by ID"
-        },
-        {
-          "cmd": "aws ec2 terminate-instances --instance-ids i-0abcd1234",
-          "desc": "Permanently terminate an EC2 instance"
-        },
-        {
-          "cmd": "aws ec2 describe-key-pairs",
-          "desc": "List all available EC2 key pairs"
-        },
-        {
-          "cmd": "aws ec2 describe-security-groups",
-          "desc": "List all security groups and their rules"
-        },
-        {
-          "cmd": "aws ec2 run-instances --image-id ami-0abcd1234 --instance-type t2.micro --count 1",
-          "desc": "Launch a new EC2 instance from AMI"
-        }
+        { "cmd": "aws ec2 describe-instances", "desc": "List instances with full details" },
+        { "cmd": "aws ec2 describe-instances --filters \"Name=instance-state-name,Values=running\"", "desc": "List only running instances" },
+        { "cmd": "aws ec2 start-instances --instance-ids i-0abcd1234", "desc": "Start a stopped instance" },
+        { "cmd": "aws ec2 stop-instances --instance-ids i-0abcd1234", "desc": "Stop a running instance" },
+        { "cmd": "aws ec2 terminate-instances --instance-ids i-0abcd1234", "desc": "Permanently terminate an instance" },
+        { "cmd": "aws ec2 describe-security-groups", "desc": "List security groups and their rules" },
+        { "cmd": "aws ec2 run-instances --image-id ami-0abcd1234 --instance-type t3.micro --count 1", "desc": "Launch an instance from an AMI" }
       ]
     },
     {
-      "title": "IAM MANAGEMENT",
+      "title": "IAM",
       "commands": [
-        {
-          "cmd": "aws iam list-users",
-          "desc": "List all IAM users in the account"
-        },
-        {
-          "cmd": "aws iam create-user --user-name newuser",
-          "desc": "Create a new IAM user"
-        },
-        {
-          "cmd": "aws iam delete-user --user-name olduser",
-          "desc": "Delete an existing IAM user"
-        },
-        {
-          "cmd": "aws iam list-roles",
-          "desc": "List all IAM roles in the account"
-        },
-        {
-          "cmd": "aws iam attach-user-policy --user-name bob --policy-arn arn:aws:iam::aws:policy/",
-          "desc": "ReadOnlyAccessAttach a managed policy to an IAM user"
-        },
-        {
-          "cmd": "aws iam list-attached-user-policies --user-name bob",
-          "desc": "Show all policies attached to a user"
-        },
-        {
-          "cmd": "aws iam create-access-key --user-name bob",
-          "desc": "Generate a new access key for a user"
-        }
+        { "cmd": "aws iam list-users", "desc": "List IAM users" },
+        { "cmd": "aws iam list-roles", "desc": "List IAM roles" },
+        { "cmd": "aws iam create-user --user-name newuser", "desc": "Create an IAM user" },
+        { "cmd": "aws iam attach-user-policy --user-name bob --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess", "desc": "Attach a managed policy to a user" },
+        { "cmd": "aws iam list-attached-role-policies --role-name my-role", "desc": "Show managed policies attached to a role" },
+        { "cmd": "aws iam simulate-principal-policy --policy-source-arn <arn> --action-names s3:GetObject", "desc": "Test whether a principal is allowed an action" }
       ]
     },
     {
-      "title": "LAMBDA & CLOUDWATCH",
+      "title": "LAMBDA & CLOUDWATCH LOGS",
       "commands": [
-        {
-          "cmd": "aws lambda list-functions",
-          "desc": "List all Lambda functions in the region"
-        },
-        {
-          "cmd": "aws lambda invoke --function-name my",
-          "desc": "Func output.jsonInvoke a Lambda function and save output"
-        },
-        {
-          "cmd": "aws lambda update-function-code --function-name my",
-          "desc": "Func --zip-file fileb://fn.zipDeploy updated code to a Lambda function"
-        },
-        {
-          "cmd": "aws lambda get-function --function-name my",
-          "desc": "FuncGet configuration details of a Lambda function"
-        },
-        {
-          "cmd": "aws logs describe-log-groups",
-          "desc": "List all CloudWatch log groups"
-        },
-        {
-          "cmd": "aws logs tail /aws/lambda/my",
-          "desc": "Func --followStream live logs from a Lambda function"
-        },
-        {
-          "cmd": "aws logs filter-log-events --log-group-name /aws/lambda/my",
-          "desc": "Func --filter-pattern ERRORSearch log group for matching log events"
-        }
+        { "cmd": "aws lambda list-functions", "desc": "List Lambda functions in the region" },
+        { "cmd": "aws lambda invoke --function-name myFunc out.json", "desc": "Invoke a function and save the response" },
+        { "cmd": "aws lambda update-function-code --function-name myFunc --zip-file fileb://fn.zip", "desc": "Deploy new code from a zip file" },
+        { "cmd": "aws lambda get-function-configuration --function-name myFunc", "desc": "Show runtime, memory, timeout and env vars" },
+        { "cmd": "aws logs tail /aws/lambda/myFunc --follow", "desc": "Stream a function's logs live" },
+        { "cmd": "aws logs tail /aws/lambda/myFunc --since 1h --filter-pattern ERROR", "desc": "Show the last hour of matching log lines" },
+        { "cmd": "aws logs describe-log-groups", "desc": "List CloudWatch log groups" }
       ]
     },
     {
-      "title": "ADVANCED & OUTPUT TRICKS",
+      "title": "OUTPUT, QUERIES & ADVANCED",
       "commands": [
-        {
-          "cmd": "aws ec2 describe-instances --output table",
-          "desc": "Display command output in table format"
-        },
-        {
-          "cmd": "aws ec2 describe-instances --output json",
-          "desc": "Display command output in JSON format"
-        },
-        {
-          "cmd": "aws ec2 describe-instances --query '",
-          "desc": "Reservations[*].Instances[*].PublicIpAddress'Use JMESPath query to filter output fields"
-        },
-        {
-          "cmd": "aws --region eu-west-1 s3 ls",
-          "desc": "Override default region for a single command"
-        },
-        {
-          "cmd": "aws ec2 describe-instances --profile prod",
-          "desc": "Run command using a specific named profile"
-        },
-        {
-          "cmd": "aws cloudformation deploy --template-file template.yml --stack-name mystack",
-          "desc": "Deploy a CloudFormation stack from template"
-        },
-        {
-          "cmd": "aws ssm get-parameter --name /my/param --with-decryption",
-          "desc": "Retrieve a secret parameter from SSM store"
-        },
-        {
-          "cmd": "aws ec2 describe-regions --output text --query '",
-          "desc": "Regions[*].RegionName'List all available AWS regions as plain text"
-        }
+        { "cmd": "aws ec2 describe-instances --output table", "desc": "Show output as a table" },
+        { "cmd": "aws ec2 describe-instances --query \"Reservations[].Instances[].InstanceId\" --output text", "desc": "Filter output fields with JMESPath" },
+        { "cmd": "aws ec2 describe-regions --query \"Regions[].RegionName\" --output text", "desc": "List region names as plain text" },
+        { "cmd": "aws s3 ls --region eu-west-1 --profile prod", "desc": "Override region and profile for one command" },
+        { "cmd": "aws ssm get-parameter --name /my/param --with-decryption", "desc": "Read a SecureString parameter from Parameter Store" },
+        { "cmd": "aws cloudformation deploy --template-file template.yml --stack-name mystack", "desc": "Deploy a CloudFormation stack" },
+        { "cmd": "aws <service> <command> help", "desc": "Show built-in help for any command" }
       ]
     }
   ]

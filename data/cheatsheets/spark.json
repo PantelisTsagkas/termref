@@ -1,0 +1,75 @@
+{
+  "title": "Apache Spark (PySpark) Cheat Sheet",
+  "sections": [
+    {
+      "title": "LAUNCH & SUBMIT",
+      "commands": [
+        { "cmd": "pyspark --master \"local[4]\"", "desc": "Start the PySpark shell on 4 local cores" },
+        { "cmd": "pyspark --remote \"sc://localhost\"", "desc": "Start the shell against a Spark Connect server" },
+        { "cmd": "spark-sql", "desc": "Open the interactive Spark SQL CLI" },
+        { "cmd": "spark-submit --master \"local[*]\" app.py", "desc": "Run a PySpark application locally on all cores" },
+        { "cmd": "spark-submit --master yarn --deploy-mode cluster app.py", "desc": "Submit to YARN with the driver in the cluster" },
+        { "cmd": "spark-submit --py-files deps.zip app.py", "desc": "Ship extra Python modules to the executors" },
+        { "cmd": "spark-submit --packages org.apache.spark:spark-avro_2.13:4.0.0 app.py", "desc": "Pull Maven packages at submit time" },
+        { "cmd": "spark-submit --conf spark.sql.shuffle.partitions=200 app.py", "desc": "Set any Spark property for this run" }
+      ]
+    },
+    {
+      "title": "SESSION & READING DATA",
+      "commands": [
+        { "cmd": "spark = SparkSession.builder.appName(\"app\").getOrCreate()", "desc": "Create or reuse a SparkSession" },
+        { "cmd": "SparkSession.builder.remote(\"sc://localhost\").getOrCreate()", "desc": "Connect to a Spark Connect server from Python" },
+        { "cmd": "spark.read.parquet(\"s3a://bucket/path/\")", "desc": "Read Parquet files into a DataFrame" },
+        { "cmd": "spark.read.option(\"header\", True).csv(\"data.csv\")", "desc": "Read CSV using the first row as column names" },
+        { "cmd": "spark.read.json(\"events.json\")", "desc": "Read newline-delimited JSON" },
+        { "cmd": "spark.table(\"db.events\")", "desc": "Load a catalog table as a DataFrame" },
+        { "cmd": "spark.sql(\"SELECT * FROM events LIMIT 10\")", "desc": "Run SQL and get a DataFrame back" }
+      ]
+    },
+    {
+      "title": "TRANSFORMATIONS",
+      "commands": [
+        { "cmd": "df.select(\"id\", F.col(\"amount\") * 2)", "desc": "Pick and compute columns (from pyspark.sql import functions as F)" },
+        { "cmd": "df.filter(F.col(\"status\") == \"ok\")", "desc": "Keep rows matching a condition" },
+        { "cmd": "df.withColumn(\"day\", F.to_date(\"ts\"))", "desc": "Add or replace a column" },
+        { "cmd": "df.groupBy(\"day\").agg(F.sum(\"amount\").alias(\"total\"))", "desc": "Aggregate by key" },
+        { "cmd": "df.join(other, on=\"id\", how=\"left\")", "desc": "Join two DataFrames on a key" },
+        { "cmd": "df.join(F.broadcast(small), \"id\")", "desc": "Broadcast a small table to avoid a shuffle" },
+        { "cmd": "df.dropDuplicates([\"id\"])", "desc": "Remove duplicate rows by key columns" },
+        { "cmd": "F.row_number().over(Window.partitionBy(\"id\").orderBy(F.desc(\"ts\")))", "desc": "Window function: rank rows within each key" }
+      ]
+    },
+    {
+      "title": "INSPECT & DEBUG",
+      "commands": [
+        { "cmd": "df.printSchema()", "desc": "Print the column names and types" },
+        { "cmd": "df.show(20, truncate=False)", "desc": "Print rows without cutting long values" },
+        { "cmd": "df.count()", "desc": "Count rows (triggers a job)" },
+        { "cmd": "df.explain(mode=\"formatted\")", "desc": "Show the physical query plan" },
+        { "cmd": "df.createOrReplaceTempView(\"events\")", "desc": "Register a DataFrame for use in spark.sql" },
+        { "cmd": "df.toPandas()", "desc": "Collect to a pandas DataFrame on the driver (small data only)" }
+      ]
+    },
+    {
+      "title": "WRITING DATA",
+      "commands": [
+        { "cmd": "df.write.mode(\"overwrite\").parquet(\"out/\")", "desc": "Write Parquet, replacing existing data" },
+        { "cmd": "df.write.mode(\"append\").partitionBy(\"day\").parquet(\"out/\")", "desc": "Append, partitioned into one folder per value" },
+        { "cmd": "df.write.saveAsTable(\"db.events\")", "desc": "Write as a managed catalog table" },
+        { "cmd": "df.coalesce(1).write.csv(\"out/\", header=True)", "desc": "Write a single CSV file (small outputs only)" },
+        { "cmd": "spark.conf.set(\"spark.sql.sources.partitionOverwriteMode\", \"dynamic\")", "desc": "Overwrite only the partitions being written" }
+      ]
+    },
+    {
+      "title": "PERFORMANCE",
+      "commands": [
+        { "cmd": "df.cache()", "desc": "Keep a DataFrame in memory after first use" },
+        { "cmd": "df.unpersist()", "desc": "Release a cached DataFrame" },
+        { "cmd": "df.repartition(200, \"id\")", "desc": "Reshuffle into N partitions by key" },
+        { "cmd": "df.coalesce(10)", "desc": "Reduce partitions without a full shuffle" },
+        { "cmd": "df.rdd.getNumPartitions()", "desc": "Check how many partitions a DataFrame has" },
+        { "cmd": "spark.conf.set(\"spark.sql.adaptive.enabled\", \"true\")", "desc": "Enable Adaptive Query Execution (on by default since 3.2)" }
+      ]
+    }
+  ]
+}

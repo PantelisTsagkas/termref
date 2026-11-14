@@ -4,7 +4,7 @@ import "./globals.css";
 import "./termref.css";
 
 export const metadata: Metadata = {
-  title: "Termref — Terminal Cheat Sheet Reference",
+  title: "Termref | Terminal Cheat Sheet Reference",
   description: "Curated terminal command cheat sheets for developers",
 };
 

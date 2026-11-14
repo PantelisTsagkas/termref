@@ -4,9 +4,11 @@
 
 **Curated terminal cheat sheet reference**
 
-Pick a technology. Hit load. Get a clean, downloadable reference card — instantly.
+Pick a technology. Hit load. Get a clean, downloadable reference card, instantly.
 
-<img src="./docs/termref-empty-state.png" alt="Termref — select a technology and load a cheat sheet" width="900" />
+**Status: ACTIVE**
+
+<img src="./docs/termref-empty-state.png" alt="Termref: select a technology and load a cheat sheet" width="900" />
 
 <br><br>
 
@@ -29,12 +31,12 @@ Pick a technology. Hit load. Get a clean, downloadable reference card — instan
 
 </div>
 
-- **15 technologies** — Git, Docker, Kubernetes, Python, Bash, AWS CLI, Terraform, Vim, dbt, and more
-- **Category filtering** — browse by DevOps, Language, Cloud, Data, etc.
-- **Instant loading** — select a tool, press Load, get a structured cheat sheet immediately
-- **Download as .TXT or .MD** — export for offline use or paste into docs
-- **Pre-built content** — cheat sheets are stored as static JSON, bundled at build time
-- **Terminal-inspired UI** — dark theme, monospace fonts, zero fluff
+- **17 technologies**: Git, Docker, Kubernetes, Python, uv, Bash, AWS CLI, Terraform, dbt, Airflow 3, Snowflake, Spark and more
+- **Category filtering**: browse by DevOps, Language, Cloud, Data, etc.
+- **Instant loading**: select a tool, press Load, get a structured cheat sheet immediately
+- **Download as .TXT or .MD**: export for offline use or paste into docs
+- **Pre-built content**: cheat sheets are stored as static JSON, bundled at build time and validated in CI
+- **Terminal-inspired UI**: dark theme, monospace fonts, zero fluff
 
 ## Supported Technologies
 
@@ -44,6 +46,7 @@ Pick a technology. Hit load. Get a clean, downloadable reference card — instan
   <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="Kubernetes" />
   <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white" alt="npm" />
   <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/uv-DE5FE9?style=flat-square&logo=uv&logoColor=white" alt="uv" />
   <img src="https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=gnubash&logoColor=white" alt="Bash" />
   <img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux" />
   <img src="https://img.shields.io/badge/AWS_CLI-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white" alt="AWS CLI" />
@@ -53,6 +56,7 @@ Pick a technology. Hit load. Get a clean, downloadable reference card — instan
   <img src="https://img.shields.io/badge/dbt-FF694B?style=flat-square&logo=dbt&logoColor=white" alt="dbt" />
   <img src="https://img.shields.io/badge/Airflow-017CEE?style=flat-square&logo=apacheairflow&logoColor=white" alt="Airflow" />
   <img src="https://img.shields.io/badge/Snowflake-29B5E8?style=flat-square&logo=snowflake&logoColor=white" alt="Snowflake" />
+  <img src="https://img.shields.io/badge/Spark-E25A1C?style=flat-square&logo=apachespark&logoColor=white" alt="Apache Spark" />
   <img src="https://img.shields.io/badge/Next.js-000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js" />
 </p>
 
@@ -63,7 +67,7 @@ Pick a technology. Hit load. Get a clean, downloadable reference card — instan
 | Framework | Next.js 16 (App Router) | ![Next.js](https://img.shields.io/badge/-Next.js-000?style=flat-square&logo=nextdotjs&logoColor=white) |
 | UI | React 19 + custom CSS | ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=react&logoColor=black) |
 | Fonts | JetBrains Mono, Space Mono | ![Google Fonts](https://img.shields.io/badge/-Google_Fonts-4285F4?style=flat-square&logo=googlefonts&logoColor=white) |
-| Data | Static JSON cheat sheets | |
+| Data | Static JSON cheat sheets, validated by `scripts/validate-sheets.mjs` | |
 | Language | TypeScript 5 | ![TypeScript](https://img.shields.io/badge/-TypeScript-3178c6?style=flat-square&logo=typescript&logoColor=white) |
 | Package Manager | pnpm | ![pnpm](https://img.shields.io/badge/-pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white) |
 
@@ -71,15 +75,15 @@ Pick a technology. Hit load. Get a clean, downloadable reference card — instan
 
 ### Prerequisites
 
-- ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-- ![pnpm](https://img.shields.io/badge/pnpm-latest-F69220?style=flat-square&logo=pnpm&logoColor=white) (or npm / yarn)
+- ![Node.js](https://img.shields.io/badge/Node.js-22.18+-339933?style=flat-square&logo=nodedotjs&logoColor=white) (the tests import TypeScript directly)
+- ![pnpm](https://img.shields.io/badge/pnpm-11-F69220?style=flat-square&logo=pnpm&logoColor=white)
 
 No environment variables or API keys are required.
 
 ### Setup
 
 ```bash
-git clone https://github.com/your-username/termref.git
+git clone https://github.com/PantelisTsagkas/termref.git
 cd termref
 pnpm install
 pnpm dev
@@ -87,12 +91,16 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-### Production
+### Checks
 
 ```bash
-pnpm build
-pnpm start
+pnpm lint       # ESLint
+pnpm validate   # cheat sheet shape and style rules
+pnpm test       # TXT / Markdown export tests
+pnpm build      # production build
 ```
+
+CI runs all four on pushes to main and on pull requests.
 
 ## Project Structure
 
@@ -110,9 +118,13 @@ termref/
 │   ├── termref-aws.png          # README screenshot
 │   └── termref-empty-state.png  # README screenshot
 ├── lib/
-│   ├── cheat-sheet.ts           # Types + text/markdown formatters
-│   ├── cheatsheets.ts           # Static sheet loader
-│   └── technologies.ts          # Tech list + validators
+│   ├── cheat-sheet.ts           # Types + TXT/Markdown formatters
+│   ├── cheatsheets.ts           # Static sheet registry
+│   └── technologies.ts          # Tech list + categories
+├── scripts/
+│   └── validate-sheets.mjs      # Sheet validator (--fix reformats)
+├── tests/
+│   └── cheat-sheet.test.mjs     # Export formatter tests
 └── package.json
 ```
 
@@ -123,8 +135,9 @@ Each technology has a JSON file in `data/cheatsheets/` (e.g. `git.json`). To add
 1. Add an entry to `lib/technologies.ts`
 2. Create `data/cheatsheets/<id>.json` following the existing format
 3. Import it in `lib/cheatsheets.ts`
+4. Run `pnpm validate --fix` to check it and normalise the layout
 
-The app validates at build time that every technology has a matching sheet.
+Section titles are UPPER CASE, descriptions have no trailing period, and every command in a sheet is unique. The build also fails if a technology and its sheet don't match up.
 
 ---
 

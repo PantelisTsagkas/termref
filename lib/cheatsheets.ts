@@ -13,7 +13,9 @@ import npm from "@/data/cheatsheets/npm.json";
 import python from "@/data/cheatsheets/python.json";
 import rust from "@/data/cheatsheets/rust.json";
 import snowflake from "@/data/cheatsheets/snowflake.json";
+import spark from "@/data/cheatsheets/spark.json";
 import terraform from "@/data/cheatsheets/terraform.json";
+import uv from "@/data/cheatsheets/uv.json";
 import vim from "@/data/cheatsheets/vim.json";
 
 const CHEAT_SHEETS: Record<string, CheatSheet> = {
@@ -21,6 +23,7 @@ const CHEAT_SHEETS: Record<string, CheatSheet> = {
   docker,
   kubernetes,
   npm,
+  uv,
   python,
   bash,
   linux,
@@ -31,12 +34,18 @@ const CHEAT_SHEETS: Record<string, CheatSheet> = {
   dbt,
   airflow,
   snowflake,
+  spark,
   nextjs,
 };
 
 for (const tech of TECHNOLOGIES) {
   if (!CHEAT_SHEETS[tech.id]) {
     throw new Error(`Missing cheat sheet for technology: ${tech.id}`);
+  }
+}
+for (const id of Object.keys(CHEAT_SHEETS)) {
+  if (!TECHNOLOGIES.some((t) => t.id === id)) {
+    throw new Error(`Cheat sheet has no technology entry: ${id}`);
   }
 }
 
