@@ -1,5 +1,14 @@
 {
   "title": "Snowflake Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Snowflake CLI 3.33, Snowflake SQL",
+  "sources": [
+    "https://docs.snowflake.com/en/developer-guide/snowflake-cli/command-reference/overview",
+    "https://docs.snowflake.com/en/sql-reference-commands"
+  ],
+  "watch": [
+    { "name": "Snowflake CLI", "source": "pypi:snowflake-cli", "checked": "3.33.0", "level": "major" }
+  ],
   "sections": [
     {
       "title": "SNOWFLAKE CLI",
@@ -43,7 +52,7 @@
       "title": "LOADING & STAGES",
       "commands": [
         { "cmd": "CREATE STAGE my_stage;", "desc": "Create a named internal stage" },
-        { "cmd": "PUT file://data.csv @my_stage;", "desc": "Upload a local file to a stage (from a client)" },
+        { "cmd": "PUT file:///tmp/data.csv @my_stage;", "desc": "Upload a local file to a stage (absolute path, from a client)" },
         { "cmd": "LIST @my_stage;", "desc": "List files in a stage" },
         { "cmd": "COPY INTO events FROM @my_stage FILE_FORMAT = (TYPE = CSV SKIP_HEADER = 1);", "desc": "Load staged CSV files into a table" },
         { "cmd": "COPY INTO @my_stage/export/ FROM events;", "desc": "Unload a table to files in a stage" },
@@ -69,8 +78,8 @@
       "commands": [
         { "cmd": "CREATE OR REPLACE TABLE events_dev CLONE events;", "desc": "Zero-copy clone a table" },
         { "cmd": "CREATE OR REPLACE VIEW v AS SELECT * FROM t;", "desc": "Create or replace a view" },
-        { "cmd": "GRANT SELECT ON ALL TABLES IN SCHEMA s TO ROLE analyst;", "desc": "Grant read on every table in a schema" },
-        { "cmd": "SELECT SYSTEM$CLUSTERING_INFORMATION('t');", "desc": "Check clustering quality for a table" },
+        { "cmd": "GRANT SELECT ON ALL TABLES IN SCHEMA s TO ROLE analyst;", "desc": "Grant read on every existing table in a schema" },
+        { "cmd": "SELECT SYSTEM$CLUSTERING_INFORMATION('t');", "desc": "Check clustering quality (table must have a clustering key)" },
         { "cmd": "SELECT * FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY());", "desc": "Recent query history for the current user" },
         { "cmd": "SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY;", "desc": "Credit usage per warehouse (needs ACCOUNT_USAGE access)" },
         { "cmd": "CALL my_procedure();", "desc": "Execute a stored procedure" }

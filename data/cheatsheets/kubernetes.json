@@ -1,5 +1,14 @@
 {
   "title": "Kubernetes Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "kubectl 1.37",
+  "sources": [
+    "https://kubernetes.io/docs/reference/kubectl/",
+    "https://kubernetes.io/docs/reference/kubectl/quick-reference/"
+  ],
+  "watch": [
+    { "name": "Kubernetes", "source": "github-releases:kubernetes/kubernetes", "checked": "1.37.2", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "CONTEXT & INFO",
@@ -46,7 +55,7 @@
         { "cmd": "kubectl port-forward <pod> 8080:80", "desc": "Forward a local port to a pod" },
         { "cmd": "kubectl port-forward svc/<name> 8080:80", "desc": "Forward a local port to a service" },
         { "cmd": "kubectl get ingress", "desc": "List ingress resources" },
-        { "cmd": "kubectl get endpoints", "desc": "List service endpoint targets" },
+        { "cmd": "kubectl get endpointslices", "desc": "List EndpointSlices behind services (Endpoints is deprecated)" },
         { "cmd": "kubectl run curl --image=curlimages/curl -it --rm -- sh", "desc": "Run ephemeral pod for network tests" }
       ]
     },
@@ -54,8 +63,8 @@
       "title": "DEBUGGING",
       "commands": [
         { "cmd": "kubectl get events --sort-by=.lastTimestamp", "desc": "Show recent cluster events" },
-        { "cmd": "kubectl top pods", "desc": "Show pod CPU and memory usage" },
-        { "cmd": "kubectl top nodes", "desc": "Show node CPU and memory usage" },
+        { "cmd": "kubectl top pods", "desc": "Show pod CPU and memory usage (needs Metrics Server)" },
+        { "cmd": "kubectl top nodes", "desc": "Show node CPU and memory usage (needs Metrics Server)" },
         { "cmd": "kubectl auth can-i create pods", "desc": "Check current RBAC permissions" },
         { "cmd": "kubectl logs <pod> -c <container>", "desc": "View logs from a specific container" },
         { "cmd": "kubectl cp <pod>:/path ./local", "desc": "Copy files from a pod to local disk" },

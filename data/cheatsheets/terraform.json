@@ -1,5 +1,14 @@
 {
   "title": "Terraform Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Terraform 1.17",
+  "sources": [
+    "https://developer.hashicorp.com/terraform/cli/commands",
+    "https://github.com/hashicorp/terraform/releases/tag/v1.17.0"
+  ],
+  "watch": [
+    { "name": "Terraform", "source": "github-releases:hashicorp/terraform", "checked": "1.17.2", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "SETUP & INITIALIZATION",

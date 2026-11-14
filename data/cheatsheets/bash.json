@@ -1,5 +1,12 @@
 {
   "title": "Bash Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Bash 5.3 on Ubuntu 26.04",
+  "sources": [
+    "https://www.gnu.org/software/bash/manual/bash.html",
+    "https://manpages.ubuntu.com/"
+  ],
+  "watch": [],
   "sections": [
     {
       "title": "NAVIGATION & FILE SYSTEM",
@@ -11,7 +18,7 @@
         { "cmd": "ls -la", "desc": "List all files with detailed permissions" },
         { "cmd": "tree -L 2", "desc": "Display directory tree two levels deep" },
         { "cmd": "find . -name '*.txt'", "desc": "Find all .txt files recursively" },
-        { "cmd": "locate filename", "desc": "Quickly find file by name system-wide" }
+        { "cmd": "locate filename", "desc": "Find files by name from the locate index" }
       ]
     },
     {
@@ -49,7 +56,7 @@
         { "cmd": "htop", "desc": "Enhanced interactive process viewer" },
         { "cmd": "df -h", "desc": "Show disk usage in human-readable format" },
         { "cmd": "du -sh dir/", "desc": "Show total size of directory" },
-        { "cmd": "free -h", "desc": "Display available and used memory" },
+        { "cmd": "free -h", "desc": "Display available and used memory (Linux)" },
         { "cmd": "uptime", "desc": "Show system uptime and load averages" }
       ]
     },
@@ -72,7 +79,7 @@
         { "cmd": "cmd1 | cmd2", "desc": "Pipe output of cmd1 into cmd2" },
         { "cmd": "command > file.txt", "desc": "Redirect stdout to file, overwriting it" },
         { "cmd": "command >> file.txt", "desc": "Append stdout to existing file" },
-        { "cmd": "command 2>&1 | tee out.log", "desc": "Capture stdout and stderr to file" },
+        { "cmd": "command 2>&1 | tee out.log", "desc": "Show stdout and stderr and save them to a file" },
         { "cmd": "command &", "desc": "Run command in the background" },
         { "cmd": "jobs && fg %1", "desc": "List background jobs and bring one forward" },
         { "cmd": "history | grep 'cmd'", "desc": "Search command history for a term" },

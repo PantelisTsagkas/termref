@@ -1,5 +1,14 @@
 {
   "title": "dbt Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "dbt Core 1.12",
+  "sources": [
+    "https://docs.getdbt.com/reference/dbt-commands",
+    "https://docs.getdbt.com/reference/node-selection/methods"
+  ],
+  "watch": [
+    { "name": "dbt Core", "source": "pypi:dbt-core", "checked": "1.12.7", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "PROJECT SETUP",
@@ -19,7 +28,7 @@
         { "cmd": "dbt run", "desc": "Execute all models in the project" },
         { "cmd": "dbt run --select model_name", "desc": "Run a specific model" },
         { "cmd": "dbt run --select tag:nightly", "desc": "Run models matching a tag selector" },
-        { "cmd": "dbt build", "desc": "Run models, tests, and snapshots together" },
+        { "cmd": "dbt build", "desc": "Run seeds, models, snapshots and tests in DAG order" },
         { "cmd": "dbt run --full-refresh", "desc": "Fully rebuild incremental models" },
         { "cmd": "dbt compile", "desc": "Compile SQL without executing against warehouse" },
         { "cmd": "dbt run-operation macro_name", "desc": "Invoke a project macro operation" }
@@ -28,7 +37,7 @@
     {
       "title": "TESTING",
       "commands": [
-        { "cmd": "dbt test", "desc": "Run all data and schema tests" },
+        { "cmd": "dbt test", "desc": "Run all data tests and unit tests" },
         { "cmd": "dbt test --select model_name", "desc": "Run tests for a specific model" },
         { "cmd": "dbt test --select \"source:*\"", "desc": "Run tests defined on all sources" },
         { "cmd": "dbt test --store-failures", "desc": "Persist failing test rows to tables" },
@@ -43,7 +52,7 @@
         { "cmd": "dbt docs generate", "desc": "Generate documentation artifacts" },
         { "cmd": "dbt docs serve", "desc": "Serve project docs locally in browser" },
         { "cmd": "dbt ls", "desc": "List resources matching a selector" },
-        { "cmd": "dbt show --select model_name", "desc": "Preview compiled model output" },
+        { "cmd": "dbt show --select model_name", "desc": "Preview a model's query results without materializing" },
         { "cmd": "dbt list --resource-type model", "desc": "List all models in the project" },
         { "cmd": "dbt list --output json", "desc": "List resources as JSON output" },
         { "cmd": "dbt compile --select model_name", "desc": "Inspect compiled SQL for a model" }
@@ -57,8 +66,8 @@
         { "cmd": "dbt seed --full-refresh", "desc": "Drop and reload all seed tables" },
         { "cmd": "dbt snapshot", "desc": "Run all configured snapshot models" },
         { "cmd": "dbt snapshot --select snapshot_name", "desc": "Run a specific snapshot model" },
-        { "cmd": "dbt run --select state:modified", "desc": "Run only modified models in state" },
-        { "cmd": "dbt clone --select state:modified", "desc": "Clone modified models from prior state" }
+        { "cmd": "dbt run --select state:modified --state path/to/artifacts", "desc": "Run only models changed since the saved manifest" },
+        { "cmd": "dbt clone --select state:modified --state path/to/artifacts", "desc": "Clone modified models from prior state" }
       ]
     },
     {
@@ -66,9 +75,9 @@
       "commands": [
         { "cmd": "dbt run --vars '{key: value}'", "desc": "Pass runtime variables to models" },
         { "cmd": "dbt retry", "desc": "Retry failed nodes from previous invocation" },
-        { "cmd": "dbt retry --select model_name", "desc": "Retry a specific failed node" },
+        { "cmd": "dbt build --select state:modified+ --defer --state path/to/artifacts", "desc": "Slim CI: build changes and children, defer the rest" },
         { "cmd": "dbt compile --inline \"select 1\"", "desc": "Compile ad hoc inline SQL" },
-        { "cmd": "dbt run --empty", "desc": "Build models using empty source inputs" },
+        { "cmd": "dbt run --empty", "desc": "Build models with refs and sources limited to zero rows" },
         { "cmd": "dbt source freshness --select \"source:raw\"", "desc": "Check freshness for one source only" },
         { "cmd": "dbt list --select +model_name", "desc": "Select model and all upstream parents" },
         { "cmd": "dbt list --select model_name+", "desc": "Select model and all downstream children" }

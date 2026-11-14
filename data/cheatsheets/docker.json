@@ -1,5 +1,15 @@
 {
   "title": "Docker Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Docker 29.9, Compose 5.7",
+  "sources": [
+    "https://docs.docker.com/reference/cli/docker/",
+    "https://docs.docker.com/reference/cli/docker/compose/"
+  ],
+  "watch": [
+    { "name": "Docker", "source": "github-tags:docker/cli", "checked": "29.9.2", "level": "major" },
+    { "name": "Docker Compose", "source": "github-releases:docker/compose", "checked": "5.7.1", "level": "major" }
+  ],
   "sections": [
     {
       "title": "SETUP & INFO",
@@ -9,8 +19,8 @@
         { "cmd": "docker help", "desc": "List all available Docker commands" },
         { "cmd": "docker login", "desc": "Log in to Docker Hub or a registry" },
         { "cmd": "docker logout", "desc": "Log out from a Docker registry" },
-        { "cmd": "systemctl start docker", "desc": "Start the Docker daemon service" },
-        { "cmd": "systemctl enable docker", "desc": "Enable Docker to start on boot" }
+        { "cmd": "sudo systemctl start docker", "desc": "Start the Docker daemon service (Linux)" },
+        { "cmd": "sudo systemctl enable docker", "desc": "Start the Docker daemon on boot (Linux)" }
       ]
     },
     {
@@ -68,7 +78,7 @@
       "title": "DOCKER COMPOSE",
       "commands": [
         { "cmd": "docker compose up -d", "desc": "Start all services in detached mode" },
-        { "cmd": "docker compose down", "desc": "Stop and remove all compose services" },
+        { "cmd": "docker compose down", "desc": "Stop and remove compose containers and networks" },
         { "cmd": "docker compose build", "desc": "Build or rebuild compose service images" },
         { "cmd": "docker compose logs -f", "desc": "Stream logs from all compose services" },
         { "cmd": "docker compose ps", "desc": "List status of compose services" },

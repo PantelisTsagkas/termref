@@ -1,16 +1,24 @@
 {
   "title": "Git Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Git 2.56",
+  "sources": [
+    "https://git-scm.com/docs"
+  ],
+  "watch": [
+    { "name": "Git", "source": "github-tags:git/git", "checked": "2.56.1", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "SETUP & CONFIGURATION",
       "commands": [
-        { "cmd": "git config --global user.name \"Your Name\"", "desc": "Set global username for all commits" },
-        { "cmd": "git config --global user.email \"you@example.com\"", "desc": "Set global email for all commits" },
-        { "cmd": "git config --list", "desc": "List all current Git configuration settings" },
+        { "cmd": "git config set --global user.name \"Your Name\"", "desc": "Set global username for all commits" },
+        { "cmd": "git config set --global user.email \"you@example.com\"", "desc": "Set global email for all commits" },
+        { "cmd": "git config list", "desc": "List all configuration settings (replaces --list)" },
         { "cmd": "git init", "desc": "Initialize a new local Git repository" },
         { "cmd": "git clone <url>", "desc": "Clone a remote repository locally" },
-        { "cmd": "git config --global core.editor \"code --wait\"", "desc": "Set VS Code as default Git editor" },
-        { "cmd": "git config --global alias.st status", "desc": "Create a shortcut alias for a command" }
+        { "cmd": "git config set --global core.editor \"code --wait\"", "desc": "Set VS Code as default Git editor" },
+        { "cmd": "git config set --global alias.st status", "desc": "Create a shortcut alias for a command" }
       ]
     },
     {
@@ -33,7 +41,7 @@
         { "cmd": "git branch <name>", "desc": "Create a new branch" },
         { "cmd": "git checkout <branch>", "desc": "Switch to an existing branch" },
         { "cmd": "git checkout -b <branch>", "desc": "Create and switch to a new branch" },
-        { "cmd": "git switch -c <branch>", "desc": "Modern way to create and switch branch" },
+        { "cmd": "git switch -c <branch>", "desc": "Create and switch to a new branch (newer syntax)" },
         { "cmd": "git merge <branch>", "desc": "Merge specified branch into current branch" },
         { "cmd": "git branch -d <branch>", "desc": "Delete a local branch safely" },
         { "cmd": "git rebase <branch>", "desc": "Reapply commits on top of another branch" }
@@ -46,7 +54,7 @@
         { "cmd": "git remote add origin <url>", "desc": "Add a new remote named origin" },
         { "cmd": "git push origin <branch>", "desc": "Push branch to remote repository" },
         { "cmd": "git push -u origin <branch>", "desc": "Push and set upstream tracking branch" },
-        { "cmd": "git pull", "desc": "Fetch and merge changes from remote" },
+        { "cmd": "git pull", "desc": "Fetch and integrate remote changes into current branch" },
         { "cmd": "git fetch origin", "desc": "Download remote changes without merging" },
         { "cmd": "git remote remove <name>", "desc": "Remove a remote connection" }
       ]
@@ -60,7 +68,7 @@
         { "cmd": "git reset --soft HEAD~1", "desc": "Undo last commit, keep changes staged" },
         { "cmd": "git reset --hard HEAD~1", "desc": "Undo last commit and discard all changes" },
         { "cmd": "git clean -fd", "desc": "Remove untracked files and directories" },
-        { "cmd": "git commit --amend -m \"msg\"", "desc": "Edit the most recent commit message" }
+        { "cmd": "git commit --amend -m \"msg\"", "desc": "Rewrite the most recent commit with a new message" }
       ]
     },
     {
