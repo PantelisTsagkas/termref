@@ -1,15 +1,28 @@
 {
   "title": "Python Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Python 3.15, uv 0.13, pytest 9.2",
+  "sources": [
+    "https://docs.python.org/3/using/cmdline.html",
+    "https://docs.python.org/3/library/venv.html",
+    "https://docs.astral.sh/uv/reference/cli/",
+    "https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags"
+  ],
+  "watch": [
+    { "name": "Python", "source": "github-tags:python/cpython", "checked": "3.15.2", "level": "minor" },
+    { "name": "uv", "source": "pypi:uv", "checked": "0.13.8", "level": "minor" },
+    { "name": "pytest", "source": "pypi:pytest", "checked": "9.2.0", "level": "major" }
+  ],
   "sections": [
     {
       "title": "ENVIRONMENT & SETUP",
       "commands": [
         { "cmd": "python3 --version", "desc": "Show the installed Python version" },
-        { "cmd": "uv python install 3.13", "desc": "Install a Python version with uv" },
+        { "cmd": "uv python install 3.15", "desc": "Install a Python version with uv" },
         { "cmd": "uv venv", "desc": "Create a .venv virtual environment" },
         { "cmd": "python3 -m venv .venv", "desc": "Create a virtual environment with the standard library" },
         { "cmd": "source .venv/bin/activate", "desc": "Activate the virtual environment on macOS/Linux" },
-        { "cmd": ".venv\\Scripts\\activate", "desc": "Activate the virtual environment on Windows" },
+        { "cmd": ".venv\\Scripts\\activate.bat", "desc": "Activate the venv in Windows cmd (Activate.ps1 in PowerShell)" },
         { "cmd": "deactivate", "desc": "Leave the current virtual environment" }
       ]
     },
@@ -42,7 +55,7 @@
       "commands": [
         { "cmd": "uv run pytest", "desc": "Run the pytest suite in the project environment" },
         { "cmd": "pytest -k \"pattern\"", "desc": "Run tests whose names match a pattern" },
-        { "cmd": "pytest -x --lf", "desc": "Stop on first failure, rerun last failures first" },
+        { "cmd": "pytest -x --lf", "desc": "Rerun only the last run's failures, stop at the first" },
         { "cmd": "pytest --cov=app", "desc": "Run tests with coverage (needs pytest-cov)" },
         { "cmd": "python3 -m unittest discover", "desc": "Discover and run unittest tests" },
         { "cmd": "ruff check . --fix", "desc": "Lint and auto-fix with ruff" },
@@ -53,7 +66,7 @@
     {
       "title": "PROJECT TOOLING",
       "commands": [
-        { "cmd": "uv init myproject", "desc": "Scaffold a project with pyproject.toml" },
+        { "cmd": "uv init myproject", "desc": "Scaffold a packaged project with pyproject.toml" },
         { "cmd": "uv lock", "desc": "Resolve and write uv.lock" },
         { "cmd": "uvx <tool>", "desc": "Run a CLI tool without installing it" },
         { "cmd": "uv tool install <tool>", "desc": "Install a CLI tool globally" },
@@ -70,7 +83,7 @@
         { "cmd": "python3 -m cProfile -o out.prof script.py", "desc": "Save profiling output to a file" },
         { "cmd": "python3 -m timeit \"sum(range(100))\"", "desc": "Benchmark a small snippet" },
         { "cmd": "python3 -X importtime -c \"import pandas\"", "desc": "Show how long each import takes" },
-        { "cmd": "python3 -m json.tool file.json", "desc": "Pretty-print a JSON file" }
+        { "cmd": "python3 -m json file.json", "desc": "Pretty-print a JSON file (json.tool before 3.14)" }
       ]
     }
   ]

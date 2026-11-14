@@ -8,6 +8,12 @@ import {
   type CheatSheet,
 } from "@/lib/cheat-sheet";
 import { getCheatSheet } from "@/lib/cheatsheets";
+import {
+  isStale,
+  reportIssueUrl,
+  sourceLabel,
+  verificationLine,
+} from "@/lib/sheet-meta";
 import { CATEGORIES, TECHNOLOGIES } from "@/lib/technologies";
 import pkg from "@/package.json";
 
@@ -15,6 +21,7 @@ export default function TermrefApp() {
   const [activeCat, setActiveCat] = useState("All");
   const [selected, setSelected] = useState<string | null>(null);
   const [sheet, setSheet] = useState<CheatSheet | null>(null);
+  const [loadedId, setLoadedId] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const filteredTech =
@@ -34,6 +41,7 @@ export default function TermrefApp() {
     }
 
     setSheet(sheet);
+    setLoadedId(selected);
   }
 
   function download(content: string, ext: string, type: string) {
@@ -41,7 +49,7 @@ export default function TermrefApp() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${selected}-cheatsheet.${ext}`;
+    a.download = `${loadedId}-cheatsheet.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -50,6 +58,7 @@ export default function TermrefApp() {
     setSheet(null);
     setError("");
     setSelected(null);
+    setLoadedId(null);
   }
 
   return (
@@ -170,6 +179,35 @@ export default function TermrefApp() {
                     <div className="sheet-subtitle">
                       {countCommands(sheet)} COMMANDS · {sheet.sections.length}{" "}
                       SECTIONS
+                    </div>
+                    <div
+                      className={`sheet-verified${
+                        !sheet.verified
+                          ? " unverified"
+                          : isStale(sheet.verified)
+                            ? " stale"
+                            : ""
+                      }`}
+                    >
+                      {verificationLine(sheet)}
+                      {isStale(sheet.verified) && " · re-verification due"}
+                    </div>
+                    <div className="sheet-links">
+                      {sheet.sources.map((url) => (
+                        <a key={url} href={url} target="_blank" rel="noreferrer">
+                          {sourceLabel(url)}
+                        </a>
+                      ))}
+                      {loadedId && (
+                        <a
+                          className="report-link"
+                          href={reportIssueUrl(loadedId, sheet.title, sheet.version)}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          report an outdated command ↗
+                        </a>
+                      )}
                     </div>
                   </div>
 

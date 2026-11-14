@@ -1,5 +1,15 @@
 {
   "title": "Vim Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Vim 9.2",
+  "sources": [
+    "https://vimhelp.org/index.txt.html",
+    "https://vimhelp.org/editing.txt.html",
+    "https://vimhelp.org/motion.txt.html"
+  ],
+  "watch": [
+    { "name": "Vim", "source": "github-tags:vim/vim", "checked": "9.2.1342", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "MODES & BASICS",
@@ -48,7 +58,7 @@
         { "cmd": "n / N", "desc": "Go to next or previous match" },
         { "cmd": ":%s/old/new/g", "desc": "Replace all occurrences in file" },
         { "cmd": ":%s/old/new/gc", "desc": "Replace all with confirmation prompts" },
-        { "cmd": ":'<,'>s/old/new/g", "desc": "Replace within the visual selection" },
+        { "cmd": ":'<,'>s/old/new/g", "desc": "Replace within the visually selected lines" },
         { "cmd": ":set ignorecase", "desc": "Make searches case-insensitive" },
         { "cmd": ":noh", "desc": "Clear search highlight until next search" }
       ]
@@ -59,7 +69,7 @@
         { "cmd": ":e <file>", "desc": "Open a file for editing" },
         { "cmd": ":w", "desc": "Write current buffer to disk" },
         { "cmd": ":wq", "desc": "Write buffer and quit Vim" },
-        { "cmd": ":q", "desc": "Quit current buffer" },
+        { "cmd": ":q", "desc": "Quit the current window (Vim if it is the last)" },
         { "cmd": ":q!", "desc": "Quit without saving changes" },
         { "cmd": ":bn / :bp", "desc": "Go to next or previous buffer" },
         { "cmd": ":ls", "desc": "List open buffers" },

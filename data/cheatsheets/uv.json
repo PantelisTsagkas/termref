@@ -1,5 +1,15 @@
 {
   "title": "uv Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "uv 0.13",
+  "sources": [
+    "https://docs.astral.sh/uv/reference/cli/",
+    "https://docs.astral.sh/uv/getting-started/installation/",
+    "https://github.com/astral-sh/uv/releases/tag/0.13.0"
+  ],
+  "watch": [
+    { "name": "uv", "source": "pypi:uv", "checked": "0.13.8", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "INSTALL & PYTHON VERSIONS",
@@ -8,15 +18,15 @@
         { "cmd": "brew install uv", "desc": "Install uv with Homebrew" },
         { "cmd": "uv self update", "desc": "Update a standalone uv install to the latest release" },
         { "cmd": "uv python list", "desc": "List installed and downloadable Python versions" },
-        { "cmd": "uv python install 3.13", "desc": "Download and install a Python version" },
-        { "cmd": "uv python pin 3.13", "desc": "Write the version to .python-version for this directory" },
+        { "cmd": "uv python install 3.15", "desc": "Download and install a Python version" },
+        { "cmd": "uv python pin 3.15", "desc": "Write the version to .python-version for this directory" },
         { "cmd": "uv venv", "desc": "Create a .venv in the current directory" }
       ]
     },
     {
       "title": "PROJECTS & DEPENDENCIES",
       "commands": [
-        { "cmd": "uv init myproject", "desc": "Create a new project with pyproject.toml" },
+        { "cmd": "uv init myproject", "desc": "Create a packaged project (src layout, uv_build since 0.12)" },
         { "cmd": "uv init --lib mylib", "desc": "Create a new installable library project" },
         { "cmd": "uv add <pkg>", "desc": "Add a dependency and update uv.lock" },
         { "cmd": "uv add --dev pytest", "desc": "Add a dependency to the dev group" },

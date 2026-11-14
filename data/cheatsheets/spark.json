@@ -1,5 +1,15 @@
 {
   "title": "Apache Spark (PySpark) Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Spark 4.3",
+  "sources": [
+    "https://spark.apache.org/docs/4.3.0/submitting-applications.html",
+    "https://spark.apache.org/docs/4.3.0/api/python/reference/pyspark.sql/index.html",
+    "https://spark.apache.org/docs/4.3.0/configuration.html"
+  ],
+  "watch": [
+    { "name": "Spark", "source": "pypi:pyspark", "checked": "4.3.0", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "LAUNCH & SUBMIT",
@@ -10,7 +20,7 @@
         { "cmd": "spark-submit --master \"local[*]\" app.py", "desc": "Run a PySpark application locally on all cores" },
         { "cmd": "spark-submit --master yarn --deploy-mode cluster app.py", "desc": "Submit to YARN with the driver in the cluster" },
         { "cmd": "spark-submit --py-files deps.zip app.py", "desc": "Ship extra Python modules to the executors" },
-        { "cmd": "spark-submit --packages org.apache.spark:spark-avro_2.13:4.0.0 app.py", "desc": "Pull Maven packages at submit time" },
+        { "cmd": "spark-submit --packages org.apache.spark:spark-avro_2.13:4.3.0 app.py", "desc": "Pull Maven packages at submit time (match your Spark version)" },
         { "cmd": "spark-submit --conf spark.sql.shuffle.partitions=200 app.py", "desc": "Set any Spark property for this run" }
       ]
     },

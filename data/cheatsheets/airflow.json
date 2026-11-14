@@ -1,5 +1,14 @@
 {
   "title": "Apache Airflow 3 Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Airflow 3.4",
+  "sources": [
+    "https://airflow.apache.org/docs/apache-airflow/stable/cli-and-env-variables-ref.html",
+    "https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html"
+  ],
+  "watch": [
+    { "name": "Airflow", "source": "pypi:apache-airflow", "checked": "3.4.0", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "SETUP & DATABASE",
@@ -45,7 +54,7 @@
         { "cmd": "airflow tasks test <dag_id> <task_id> 2026-01-01", "desc": "Run one task without recording state" },
         { "cmd": "airflow tasks clear <dag_id> --task-regex <regex> --start-date 2026-01-01 --end-date 2026-01-02", "desc": "Clear matching task instances in a date range so they run again" },
         { "cmd": "airflow backfill create --dag-id <dag_id> --from-date 2026-01-01 --to-date 2026-01-31", "desc": "Create a backfill over a date range (replaces dags backfill)" },
-        { "cmd": "airflow backfill create --dag-id <dag_id> --from-date 2026-01-01 --to-date 2026-01-07 --reprocessing-behavior failed --max-active-runs 3", "desc": "Backfill only failed runs, three at a time" }
+        { "cmd": "airflow backfill create --dag-id <dag_id> --from-date 2026-01-01 --to-date 2026-01-07 --reprocess-behavior failed --max-active-runs 3", "desc": "Backfill missing and failed runs, three at a time" }
       ]
     },
     {

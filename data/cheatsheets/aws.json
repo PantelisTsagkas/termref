@@ -1,5 +1,14 @@
 {
   "title": "AWS CLI Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "AWS CLI 2.40",
+  "sources": [
+    "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html",
+    "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html"
+  ],
+  "watch": [
+    { "name": "AWS CLI", "source": "github-tags:aws/aws-cli", "checked": "2.40.3", "level": "major" }
+  ],
   "sections": [
     {
       "title": "SETUP & CONFIGURATION",

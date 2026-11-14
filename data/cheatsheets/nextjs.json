@@ -1,5 +1,14 @@
 {
   "title": "Next.js Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Next.js 16.4, Vercel CLI 65",
+  "sources": [
+    "https://nextjs.org/docs/app/api-reference",
+    "https://vercel.com/docs/cli"
+  ],
+  "watch": [
+    { "name": "Next.js", "source": "npm:next", "checked": "16.4.6", "level": "minor" }
+  ],
   "sections": [
     {
       "title": "PROJECT & SCRIPTS",
@@ -56,7 +65,7 @@
         { "cmd": "npx vercel", "desc": "Deploy preview build to Vercel" },
         { "cmd": "npx vercel --prod", "desc": "Deploy production build to Vercel" },
         { "cmd": "vercel env pull .env.local", "desc": "Pull Vercel environment variables locally" },
-        { "cmd": "vercel logs <deployment>", "desc": "Stream logs for a Vercel deployment" },
+        { "cmd": "vercel logs --deployment <url>", "desc": "Show recent runtime logs for one deployment" },
         { "cmd": "vercel inspect <url>", "desc": "Inspect deployment build and runtime details" },
         { "cmd": "next.config.ts", "desc": "Configure Next.js build and runtime behavior" },
         { "cmd": "vercel.json / vercel.ts", "desc": "Configure Vercel routing and platform settings" }

@@ -1,12 +1,21 @@
 {
   "title": "npm Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "npm 12.2",
+  "sources": [
+    "https://docs.npmjs.com/cli/v12/commands",
+    "https://github.com/npm/cli/releases/tag/v12.0.0"
+  ],
+  "watch": [
+    { "name": "npm", "source": "npm:npm", "checked": "12.2.2", "level": "major" }
+  ],
   "sections": [
     {
       "title": "PROJECT SETUP",
       "commands": [
         { "cmd": "npm init", "desc": "Create package.json interactively" },
         { "cmd": "npm init -y", "desc": "Create package.json with default values" },
-        { "cmd": "npm install", "desc": "Install dependencies from package-lock.json" },
+        { "cmd": "npm install", "desc": "Install all dependencies listed in package.json" },
         { "cmd": "npm ci", "desc": "Clean install from lockfile in CI environments" },
         { "cmd": "npm pkg set name=my-app", "desc": "Set a field in package.json" },
         { "cmd": "npm pkg get version", "desc": "Read a field from package.json" },
@@ -33,7 +42,7 @@
         { "cmd": "npm start", "desc": "Run the start script" },
         { "cmd": "npm test", "desc": "Run the test script" },
         { "cmd": "npm run build", "desc": "Run the build script" },
-        { "cmd": "npx <cmd>", "desc": "Execute a package binary without installing" },
+        { "cmd": "npx <cmd>", "desc": "Run a package binary, fetching it if not installed" },
         { "cmd": "npm exec <pkg>", "desc": "Run a package binary from local or remote" },
         { "cmd": "npm run <script> -- --flag", "desc": "Pass arguments through to a script" }
       ]
@@ -57,8 +66,8 @@
         { "cmd": "npm audit", "desc": "Scan dependencies for known vulnerabilities" },
         { "cmd": "npm audit fix", "desc": "Automatically fix compatible vulnerabilities" },
         { "cmd": "npm fund", "desc": "List packages seeking funding" },
-        { "cmd": "npm shrinkwrap", "desc": "Generate npm-shrinkwrap.json lockfile" },
-        { "cmd": "npm rebuild", "desc": "Rebuild native addons for current platform" },
+        { "cmd": "npm install-scripts approve <pkg>", "desc": "Allow a dependency's install scripts (blocked by default in npm 12)" },
+        { "cmd": "npm rebuild", "desc": "Rebuild packages and run newly approved install scripts" },
         { "cmd": "npm root", "desc": "Print path to local node_modules folder" }
       ]
     },

@@ -1,5 +1,13 @@
 {
   "title": "Linux Cheat Sheet",
+  "verified": "2026-11-14",
+  "version": "Ubuntu 26.04 LTS, Fedora 45",
+  "sources": [
+    "https://manpages.ubuntu.com/",
+    "https://docs.fedoraproject.org/en-US/quick-docs/dnf/",
+    "https://flatpak.org/setup/"
+  ],
+  "watch": [],
   "sections": [
     {
       "title": "SYSTEM INFO",
@@ -23,7 +31,7 @@
         { "cmd": "sudo systemctl enable <service>", "desc": "Enable service to start on boot" },
         { "cmd": "sudo journalctl -u <service> -f", "desc": "Follow logs for a systemd service" },
         { "cmd": "sudo useradd -m <user>", "desc": "Create a new user with home directory" },
-        { "cmd": "passwd <user>", "desc": "Set or change a user password" }
+        { "cmd": "sudo passwd <user>", "desc": "Set or change another user's password" }
       ]
     },
     {
@@ -47,9 +55,9 @@
         { "cmd": "sudo apt install <pkg>", "desc": "Install package on Debian/Ubuntu" },
         { "cmd": "sudo apt remove <pkg>", "desc": "Remove package on Debian/Ubuntu" },
         { "cmd": "sudo dnf install <pkg>", "desc": "Install package on Fedora/RHEL" },
-        { "cmd": "sudo yum install <pkg>", "desc": "Install package on older RHEL systems" },
-        { "cmd": "snap install <pkg>", "desc": "Install a snap package" },
-        { "cmd": "flatpak install <app>", "desc": "Install application via Flatpak" }
+        { "cmd": "sudo yum install <pkg>", "desc": "Install package with yum (now an alias of dnf)" },
+        { "cmd": "sudo snap install <pkg>", "desc": "Install a snap package" },
+        { "cmd": "flatpak install flathub <app-id>", "desc": "Install an application from Flathub" }
       ]
     },
     {
@@ -61,8 +69,8 @@
         { "cmd": "du -sh <dir>", "desc": "Show total size of a directory" },
         { "cmd": "vmstat 1", "desc": "Report virtual memory statistics every second" },
         { "cmd": "iostat -x 1", "desc": "Show extended disk I/O statistics" },
-        { "cmd": "dmesg | tail", "desc": "Show recent kernel ring buffer messages" },
-        { "cmd": "lsof -i :8080", "desc": "List processes using TCP port 8080" }
+        { "cmd": "sudo dmesg | tail", "desc": "Show recent kernel messages (root-only by default)" },
+        { "cmd": "lsof -i :8080", "desc": "List processes using port 8080" }
       ]
     },
     {
